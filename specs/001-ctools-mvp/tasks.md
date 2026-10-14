@@ -36,16 +36,16 @@
 
 - [X] T008 Crear registro de rutas HashRouter en `ctools/src/routes.tsx` según `contracts/routes.md`
 - [X] T009 Crear shell App con Header/Footer en `ctools/src/App.tsx` (logo, nav 4 rutas, pie FR-003)
-- [ ] T010 [P] Implementar `PrivacyBadge` en `ctools/src/components/PrivacyBadge.tsx` (texto FR-001)
-- [ ] T011 [P] Implementar `Alert` de avisos en español en `ctools/src/components/Alert.tsx` (kinds de `UserNotice`)
-- [ ] T012 [P] Implementar `Dropzone` con validación de extensión en `ctools/src/components/Dropzone.tsx` (FR-006/FR-007)
-- [ ] T013 [P] Implementar `ProgressBar` con cancelar en `ctools/src/components/ProgressBar.tsx` (FR-023/FR-030)
-- [ ] T014 [P] Implementar `SuccessScreen` (descarga auto + manual + reset) en `ctools/src/components/SuccessScreen.tsx` (FR-024/FR-026)
-- [ ] T015 [P] Implementar helper de descarga con `revokeObjectURL` en `ctools/src/lib/download.ts` (FR-024/FR-026)
-- [ ] T016 [P] Implementar sufijos de nombre en `ctools/src/lib/filenames.ts` (FR-025: `*_unido_CTools.pdf`, `*_CTools.*`)
-- [ ] T017 [P] Implementar parser bidireccional de rangos en `ctools/src/lib/range-parser.ts` (`"1, 3, 5-8"` ↔ Set, FR-016)
-- [ ] T018 [P] Implementar infraestructura de render PDF con worker local en `ctools/src/lib/pdf-render.ts` (miniaturas canvas, R4)
-- [ ] T019 Tests unitarios de `range-parser` y `filenames` en `ctools/tests/unit/range-filenames.test.ts`
+- [X] T010 Implementar `PrivacyBadge` en `ctools/src/components/PrivacyBadge.tsx` (texto FR-001)
+- [X] T011 Implementar `Alert` de avisos en español en `ctools/src/components/Alert.tsx` (kinds de `UserNotice`)
+- [X] T012 Implementar `Dropzone` con validación de extensión en `ctools/src/components/Dropzone.tsx` (FR-006/FR-007)
+- [X] T013 Implementar `ProgressBar` con cancelar en `ctools/src/components/ProgressBar.tsx` (FR-023/FR-030)
+- [X] T014 Implementar `SuccessScreen` (descarga auto + manual + reset) en `ctools/src/components/SuccessScreen.tsx` (FR-024/FR-026)
+- [X] T015 Implementar helper de descarga con `revokeObjectURL` en `ctools/src/lib/download.ts` (FR-024/FR-026)
+- [X] T016 Implementar sufijos de nombre en `ctools/src/lib/filenames.ts` (FR-025: `*_unido_CTools.pdf`, `*_CTools.*`)
+- [X] T017 Implementar parser bidireccional de rangos en `ctools/src/lib/range-parser.ts` (`"1, 3, 5-8"` ↔ Set, FR-016)
+- [X] T018 Implementar infraestructura de render PDF con worker local en `ctools/src/lib/pdf-render.ts` (miniaturas canvas, R4)
+- [X] T019 Tests unitarios de `range-parser` y `filenames` en `ctools/tests/unit/range-filenames.test.ts`
 - [ ] T020 Verificar build estática y carga con rutas relativas en `ctools/dist/` (`npm run build && npm run preview`)
 
 **Checkpoint**: Foundation ready — las historias pueden implementarse en paralelo
