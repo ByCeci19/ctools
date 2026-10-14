@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Alert from '../../components/Alert'
 import Dropzone from '../../components/Dropzone'
+import ProgressBar from '../../components/ProgressBar'
 import RangeInput from '../../components/RangeInput'
+import SuccessScreen from '../../components/SuccessScreen'
 import ThumbnailGrid from '../../components/ThumbnailGrid'
 import { downloadBytes } from '../../lib/download'
 import { resultFilename } from '../../lib/filenames'
@@ -30,17 +32,19 @@ function revokeThumbs(thumbs: (string | null)[]) {
   }
 }
 
-// Vista Eliminar páginas: cuadrícula numerada con clic ↔ campo de rangos
-// sincronizados en ambos sentidos (FR-014/FR-015/FR-016). El procesado con
-// barra, cancelación y pantalla de éxito llega en T031.
+// Vista Eliminar páginas: 1) carga con miniaturas progresivas, 2) selección
+// por clic ↔ rangos sincronizados, 3) procesado cancelable con progreso y
+// pantalla de éxito con reset total.
 export default function RemovePagesPage() {
   const [doc, setDoc] = useState<LoadedDoc | null>(null)
   const [selection, setSelection] = useState<Set<number>>(new Set())
   const [expression, setExpression] = useState('')
   const [exprErrors, setExprErrors] = useState<string[]>([])
   const [notice, setNotice] = useState<UserNotice | null>(null)
-  const [processing, setProcessing] = useState(false)
+  const [phase, setPhase] = useState<'config' | 'working' | 'done'>('config')
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null)
+  const [result, setResult] = useState<{ bytes: Uint8Array; filename: string } | null>(null)
+  const abortRef = useRef<AbortController | null>(null)
 
   // Libera miniaturas al desmontar (constitución IV).
   useEffect(() => {
@@ -52,7 +56,8 @@ export default function RemovePagesPage() {
     }
   }, [])
 
-  const resetDoc = useCallback(() => {
+  // "Empezar de nuevo" / "Usar otro archivo": limpia todo (FR-024/FR-026).
+  const resetAll = useCallback(() => {
     setDoc((current) => {
       if (current) revokeThumbs(current.thumbs)
       return null
@@ -60,6 +65,10 @@ export default function RemovePagesPage() {
     setSelection(new Set())
     setExpression('')
     setExprErrors([])
+    setResult(null)
+    setNotice(null)
+    setProgress(null)
+    setPhase('config')
   }, [])
 
   const handleFiles = useCallback(
@@ -71,8 +80,7 @@ export default function RemovePagesPage() {
         setNotice(rejected)
         return
       }
-      resetDoc()
-      setNotice(null)
+      resetAll()
       const bytes = new Uint8Array(await file.arrayBuffer())
       try {
         const pdf = await loadPdfDocument(bytes)
@@ -92,7 +100,7 @@ export default function RemovePagesPage() {
         }
         await closePdfDocument(pdf)
       } catch (error) {
-        resetDoc()
+        resetAll()
         setNotice(
           isPasswordError(error)
             ? { kind: 'password', detail: file.name }
@@ -100,7 +108,7 @@ export default function RemovePagesPage() {
         )
       }
     },
-    [resetDoc],
+    [resetAll],
   )
 
   const applySelection = useCallback((next: Set<number>) => {
@@ -131,32 +139,62 @@ export default function RemovePagesPage() {
     [doc],
   )
 
-  const allPages = doc !== null && selection.size >= doc.pageCount
-
   const handleProcess = useCallback(async () => {
-    if (!doc || processing) return
+    if (!doc || phase !== 'config') return
     if (selection.size >= doc.pageCount) {
       setNotice({ kind: 'all-pages' })
       return
     }
-    setProcessing(true)
+    const controller = new AbortController()
+    abortRef.current = controller
+    setPhase('working')
     setNotice(null)
+    setProgress({ done: 0, total: doc.pageCount - selection.size })
     try {
-      const out = await filterPdfPages(doc.bytes, selection, (done, total) =>
-        setProgress({ done, total }),
+      const out = await filterPdfPages(
+        doc.bytes,
+        selection,
+        (done, total) => setProgress({ done, total }),
+        controller.signal,
       )
-      downloadBytes(out, 'application/pdf', resultFilename(doc.name, 'pdf'))
+      setResult({ bytes: out, filename: resultFilename(doc.name, 'pdf') })
+      setPhase('done')
     } catch (error) {
-      setNotice(
-        isPasswordError(error)
-          ? { kind: 'password' }
-          : { kind: 'invalid-format', detail: 'No se pudo completar la eliminación.' },
-      )
+      if (controller.signal.aborted) {
+        // Cancelado por el usuario: vuelta a la configuración sin aviso (FR-030).
+        setPhase('config')
+      } else {
+        setNotice(
+          isPasswordError(error)
+            ? { kind: 'password' }
+            : { kind: 'invalid-format', detail: 'No se pudo completar la eliminación.' },
+        )
+        setPhase('config')
+      }
     } finally {
-      setProcessing(false)
       setProgress(null)
+      abortRef.current = null
     }
-  }, [doc, processing, selection])
+  }, [doc, phase, selection])
+
+  const handleCancel = useCallback(() => {
+    abortRef.current?.abort()
+  }, [])
+
+  const handleDownload = useCallback(() => {
+    if (result) downloadBytes(result.bytes, 'application/pdf', result.filename)
+  }, [result])
+
+  if (phase === 'done' && result) {
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <h1 className="text-2xl font-extrabold text-gray-900">Eliminar páginas PDF</h1>
+        </div>
+        <SuccessScreen filename={result.filename} onDownload={handleDownload} onReset={resetAll} />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -170,7 +208,7 @@ export default function RemovePagesPage() {
         {doc && (
           <button
             type="button"
-            onClick={resetDoc}
+            onClick={resetAll}
             className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:border-accent hover:text-accent"
           >
             Usar otro archivo
@@ -216,18 +254,26 @@ export default function RemovePagesPage() {
             </aside>
           </div>
 
+          {phase === 'working' && progress && (
+            <ProgressBar
+              value={(progress.done / progress.total) * 100}
+              label={`Eliminando ${progress.done} de ${progress.total}`}
+              onCancel={handleCancel}
+            />
+          )}
+
           <div className="flex flex-col items-stretch gap-2">
             <button
               type="button"
               onClick={handleProcess}
-              disabled={selection.size === 0 || processing}
+              disabled={selection.size === 0 || phase !== 'config'}
               className="rounded-lg bg-accent px-6 py-3 text-base font-semibold text-white hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {processing && progress
-                ? `Eliminando ${progress.done} de ${progress.total}…`
-                : 'Eliminar páginas'}
+              {phase === 'working' ? 'Eliminando…' : 'Eliminar páginas'}
             </button>
-            {selection.size === 0 && <p className="text-center text-sm text-gray-500">Marca al menos 1 página.</p>}
+            {selection.size === 0 && phase === 'config' && (
+              <p className="text-center text-sm text-gray-500">Marca al menos 1 página.</p>
+            )}
           </div>
         </>
       )}

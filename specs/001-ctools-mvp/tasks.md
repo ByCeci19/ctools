@@ -90,7 +90,7 @@
 - [X] T028 [US3] Crear `ThumbnailGrid` con overlay "X" roja en `ctools/src/components/ThumbnailGrid.tsx` (FR-014/FR-015)
 - [X] T029 [US3] Crear `RangeInput` bidireccional en `ctools/src/components/RangeInput.tsx` (FR-016/FR-017)
 - [X] T030 [US3] Crear vista Eliminar con sincronización visual↔rangos en `ctools/src/tools/remove-pages/RemovePagesPage.tsx`
-- [ ] T031 [US3] Integrar progreso, motor, SuccessScreen y aviso `all-pages` en `ctools/src/tools/remove-pages/RemovePagesPage.tsx`
+- [X] T031 [US3] Integrar progreso, motor, SuccessScreen y aviso `all-pages` en `ctools/src/tools/remove-pages/RemovePagesPage.tsx`
 
 **Checkpoint**: US1–US3 independientes
 
