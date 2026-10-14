@@ -101,7 +101,7 @@ ctools/
 │   │   ├── RangeInput.tsx        # campo "1, 3, 5-8" <-> selección
 │   │   ├── ProgressBar.tsx
 │   │   ├── SuccessScreen.tsx     # descarga manual + "Empezar de nuevo"
-│   │   ├── Header.tsx / Footer.tsx / PrivacyBadge.tsx / Alert.tsx
+│   │   ├── PrivacyBadge.tsx / Alert.tsx   # Header/Footer viven en App.tsx
 │   ├── tools/                    # módulos desacoplados (uno por herramienta)
 │   │   ├── merge/                # Unir PDF (dnd-kit sortable + pdf-lib)
 │   │   ├── remove-pages/         # Eliminar páginas (pdf-lib + pdfjs)

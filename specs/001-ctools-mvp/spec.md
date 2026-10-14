@@ -149,10 +149,11 @@ que el PDF contiene todos esos elementos en el mismo orden.
 ### User Story 5 - Convertir un PDF con texto a Word editable (Priority: P3)
 
 Persona usuaria sube un PDF con texto seleccionable, pulsa "Convertir a
-Word" y descarga un .docx editable que reconstruye párrafos, títulos,
-saltos de página e imágenes básicas. Si del PDF no se extrae ningún
-carácter de texto (cero caracteres extraíbles), ve un aviso claro de
-documento aparentemente escaneado antes de continuar.
+Word" y descarga un .docx editable que reconstruye párrafos, títulos y
+saltos de página (alcance MVP: solo texto; las imágenes del PDF no se
+transfieren). Si del PDF no se extrae ningún carácter de texto (cero
+caracteres extraíbles), ve un aviso claro de documento aparentemente
+escaneado antes de continuar.
 
 **Why this priority**: Es la conversión más compleja y con fidelidad
 variable; va en último lugar para no bloquear el resto del MVP.
@@ -268,8 +269,8 @@ saltos de página; repetir con un PDF escaneado y verificar el aviso previo.
   conserve estructura, negritas, cursivas, listas, tablas e imágenes
   básicas del original con la mayor fidelidad posible.
 - **FR-021**: La herramienta PDF a Word MUST generar un .docx editable que
-  reconstruya párrafos, títulos, saltos de página e imágenes básicas del
-  PDF con texto seleccionable.
+  reconstruya párrafos, títulos y saltos de página del PDF con texto
+  seleccionable. Las imágenes quedan fuera del alcance del MVP.
 - **FR-022**: Cuando de un PDF no se extrae ningún carácter de texto en
   todo el documento (cero caracteres extraíbles), el sistema MUST mostrar
   un aviso claro de documento aparentemente escaneado e indicar que se

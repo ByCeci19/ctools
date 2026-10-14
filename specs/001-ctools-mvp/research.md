@@ -98,10 +98,12 @@ clarificada; esta fase valida cada decisión y fija patrones de integración.
 ## R9. Testing
 
 - **Decision**: Vitest + React Testing Library para lógica pura
-  (`range-parser`, `filenames`, agrupación de texto, construcción docx) y
-  componentes clave; flujos e2e cubiertos por guía manual `quickstart.md`.
-- **Rationale**: Los motores son funciones puras muy testeables; el render
-  PDF/docx real depende de fixtures binarios → validación guiada.
+  (`range-parser`, `filenames`, agrupación de texto); la construcción
+  `.docx` se valida por inspección de paquete en la e2e guiada (T043);
+  flujos e2e cubiertos por guía manual `quickstart.md`.
+- **Rationale**: Los motores puros son muy testeables; el render
+  PDF/docx real y el empaquetado binario dependen de fixtures →
+  validación guiada.
 - **Alternatives considered**: Playwright e2e automatizado (diferido a
   post-MVP por coste de fixtures y CI).
 
