@@ -20,7 +20,6 @@ Thumbs.db
 # Tests y cobertura
 coverage/
 
-# Interno: no subir a GitHub (proceso local, specs, agentes)
+# Interno: no subir a GitHub (proceso local, agentes)
 .specify/
-specs/
 .opencode/
