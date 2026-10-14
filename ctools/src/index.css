@@ -1,5 +1,8 @@
-/* Estilos base mínimos (T001). T005 cablea Tailwind y la paleta. */
+@import './styles/tailwind.css';
+
+/* Estilos base mínimos. La paleta vive en `src/styles/tailwind.css`. */
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
+  background-color: #f5f5fa;
 }

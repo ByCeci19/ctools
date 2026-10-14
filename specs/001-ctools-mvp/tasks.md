@@ -21,9 +21,9 @@
 - [X] T001 Crear scaffold Vite + React 18 + TypeScript estricto en `ctools/` con `package.json`, `tsconfig.json`, `vite.config.ts`
 - [X] T002 Configurar `base: './'` y asset relativo del worker PDF.js en `ctools/vite.config.ts`
 - [X] T003 Instalar dependencias en `ctools/package.json` (react-router-dom, tailwind, lucide-react, pdf-lib, pdfjs-dist, dnd-kit, react-dropzone, docx-preview, jspdf, html2canvas, docx, vitest)
-- [ ] T004 [P] Configurar `index.html` en `ctools/index.html` (lang es, título FR-027, favicon C FR-028, `public/favicon-c.svg`)
-- [ ] T005 [P] Configurar Tailwind con paleta (fondo `#F5F5FA`, acento `#E5322D`) en `ctools/src/styles/tailwind.css`
-- [ ] T006 [P] Crear workflow de deploy a Pages en `ctools/.github/workflows/deploy.yml` (npm ci, build, dist en push a main)
+- [X] T004 Configurar `index.html` en `ctools/index.html` (lang es, título FR-027, favicon C FR-028, `public/favicon-c.svg`)
+- [X] T005 Configurar Tailwind con paleta (fondo `#F5F5FA`, acento `#E5322D`) en `ctools/src/styles/tailwind.css`
+- [X] T006 Crear workflow de deploy a Pages en `ctools/.github/workflows/deploy.yml` (npm ci, build, dist en push a main)
 - [ ] T007 Configurar Vitest + React Testing Library en `ctools/vite.config.ts` y `ctools/tests/setup.ts`
 
 ---
