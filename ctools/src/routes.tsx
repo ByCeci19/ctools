@@ -1,6 +1,7 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
 import Dashboard from './tools/dashboard/Dashboard'
 import MergePage from './tools/merge/MergePage'
+import RemovePagesPage from './tools/remove-pages/RemovePagesPage'
 
 // Metadatos de las 5 rutas (contrato `contracts/routes.md`).
 // Las vistas reales llegan en sus historias (T022, T025, T030, T033, T038);
@@ -30,7 +31,8 @@ function Placeholder({ title }: { title: string }) {
 export const routes: RouteObject[] = [
   { path: '/', element: <Dashboard /> },
   { path: '/unir-pdf', element: <MergePage /> },
-  ...TOOLS.filter((tool) => tool.path !== '/unir-pdf').map((tool) => ({
+  { path: '/eliminar-paginas', element: <RemovePagesPage /> },
+  ...TOOLS.filter((tool) => tool.path !== '/unir-pdf' && tool.path !== '/eliminar-paginas').map((tool) => ({
     path: tool.path,
     element: <Placeholder title={tool.title} />,
   })),
