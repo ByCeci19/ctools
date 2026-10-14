@@ -1,4 +1,5 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
+import Dashboard from './tools/dashboard/Dashboard'
 
 // Metadatos de las 5 rutas (contrato `contracts/routes.md`).
 // Las vistas reales llegan en sus historias (T022, T025, T030, T033, T038);
@@ -26,7 +27,7 @@ function Placeholder({ title }: { title: string }) {
 }
 
 export const routes: RouteObject[] = [
-  { path: '/', element: <Placeholder title="CTools" /> },
+  { path: '/', element: <Dashboard /> },
   ...TOOLS.map((tool) => ({
     path: tool.path,
     element: <Placeholder title={tool.title} />,
