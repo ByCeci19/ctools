@@ -10,11 +10,13 @@ export type EngineProgress = (done: number, total: number) => void
 /**
  * Une varios PDF en uno solo, en el orden dado.
  * Lanza el error original si algún documento está cifrado (FR-008:
- * la vista lo traduce con `isPasswordError`).
+ * la vista lo traduce con `isPasswordError`). Acepta una señal de
+ * aborto para cancelar operaciones largas (FR-030).
  */
 export async function mergePdfs(
   documents: Uint8Array[],
   onProgress?: EngineProgress,
+  signal?: AbortSignal,
 ): Promise<Uint8Array> {
   if (documents.length < 2) {
     throw new Error('Se necesitan al menos 2 archivos PDF para unir.')
@@ -22,6 +24,7 @@ export async function mergePdfs(
   const merged = await PDFDocument.create()
   let done = 0
   for (const bytes of documents) {
+    signal?.throwIfAborted()
     const src = await PDFDocument.load(bytes)
     const pages = await merged.copyPages(src, src.getPageIndices())
     for (const page of pages) merged.addPage(page)

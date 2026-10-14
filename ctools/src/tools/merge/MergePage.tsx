@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   DndContext,
   KeyboardSensor,
@@ -19,6 +19,8 @@ import { CSS } from '@dnd-kit/utilities'
 import Alert from '../../components/Alert'
 import Dropzone from '../../components/Dropzone'
 import FileCard from '../../components/FileCard'
+import ProgressBar from '../../components/ProgressBar'
+import SuccessScreen from '../../components/SuccessScreen'
 import { downloadBytes } from '../../lib/download'
 import { mergeFilename } from '../../lib/filenames'
 import {
@@ -73,14 +75,15 @@ function SortableFileCard({
   )
 }
 
-// Vista Unir PDF (FR-010/FR-012): zona de carga, cola reordenable por
-// arrastrar, añadir más, quitar y botón "Unir PDF" (mínimo 2 archivos).
-// El progreso con barra, la cancelación y la pantalla de éxito llegan en T026.
+// Vista Unir PDF: 1) carga con validación y miniaturas, 2) cola reordenable,
+// 3) procesado cancelable con progreso y pantalla de éxito con reset total.
 export default function MergePage() {
   const [items, setItems] = useState<QueueItem[]>([])
   const [notice, setNotice] = useState<UserNotice | null>(null)
-  const [merging, setMerging] = useState(false)
+  const [phase, setPhase] = useState<'config' | 'working' | 'done'>('config')
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null)
+  const [result, setResult] = useState<{ bytes: Uint8Array; filename: string } | null>(null)
+  const abortRef = useRef<AbortController | null>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -145,26 +148,70 @@ export default function MergePage() {
   }, [])
 
   const handleMerge = useCallback(async () => {
-    if (items.length < 2 || merging) return
-    setMerging(true)
+    if (items.length < 2 || phase !== 'config') return
+    const controller = new AbortController()
+    abortRef.current = controller
+    setPhase('working')
     setNotice(null)
+    setProgress({ done: 0, total: items.length })
     try {
       const out = await mergePdfs(
         items.map((item) => item.bytes),
         (done, total) => setProgress({ done, total }),
+        controller.signal,
       )
-      downloadBytes(out, 'application/pdf', mergeFilename(items[0].name))
+      setResult({ bytes: out, filename: mergeFilename(items[0].name) })
+      setPhase('done')
     } catch (error) {
-      setNotice(
-        isPasswordError(error)
-          ? { kind: 'password' }
-          : { kind: 'invalid-format', detail: 'No se pudo completar la unión.' },
-      )
+      if (controller.signal.aborted) {
+        // Cancelado por el usuario: vuelta a la configuración sin aviso (FR-030).
+        setPhase('config')
+      } else {
+        setNotice(
+          isPasswordError(error)
+            ? { kind: 'password' }
+            : { kind: 'invalid-format', detail: 'No se pudo completar la unión.' },
+        )
+        setPhase('config')
+      }
     } finally {
-      setMerging(false)
       setProgress(null)
+      abortRef.current = null
     }
-  }, [items, merging])
+  }, [items, phase])
+
+  const handleCancel = useCallback(() => {
+    abortRef.current?.abort()
+  }, [])
+
+  const handleDownload = useCallback(() => {
+    if (result) downloadBytes(result.bytes, 'application/pdf', result.filename)
+  }, [result])
+
+  // "Empezar de nuevo": limpia cola, miniaturas, resultado y avisos (FR-024/FR-026).
+  const handleReset = useCallback(() => {
+    setItems((current) => {
+      for (const item of current) {
+        if (item.thumbnailUrl) URL.revokeObjectURL(item.thumbnailUrl)
+      }
+      return []
+    })
+    setResult(null)
+    setNotice(null)
+    setProgress(null)
+    setPhase('config')
+  }, [])
+
+  if (phase === 'done' && result) {
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <h1 className="text-2xl font-extrabold text-gray-900">Unir PDF</h1>
+        </div>
+        <SuccessScreen filename={result.filename} onDownload={handleDownload} onReset={handleReset} />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -193,18 +240,24 @@ export default function MergePage() {
         </DndContext>
       )}
 
+      {phase === 'working' && progress && (
+        <ProgressBar
+          value={(progress.done / progress.total) * 100}
+          label={`Uniendo ${progress.done} de ${progress.total}`}
+          onCancel={handleCancel}
+        />
+      )}
+
       <div className="flex flex-col items-stretch gap-2">
         <button
           type="button"
           onClick={handleMerge}
-          disabled={items.length < 2 || merging}
+          disabled={items.length < 2 || phase !== 'config'}
           className="rounded-lg bg-accent px-6 py-3 text-base font-semibold text-white hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {merging && progress
-            ? `Uniendo ${progress.done} de ${progress.total}…`
-            : 'Unir PDF'}
+          {phase === 'working' ? 'Uniendo…' : 'Unir PDF'}
         </button>
-        {items.length < 2 && !merging && (
+        {items.length < 2 && phase === 'config' && (
           <p className="text-center text-sm text-gray-500">Añade al menos 2 archivos PDF para unirlos.</p>
         )}
       </div>

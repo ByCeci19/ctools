@@ -74,7 +74,7 @@
 - [X] T023 [US2] Implementar motor de unión con pdf-lib en `ctools/src/lib/pdf-engine.ts` (`mergeEngine`, FR-013)
 - [X] T024 [US2] Crear `FileCard` (miniatura 1ª página, nombre, peso, nº páginas) en `ctools/src/components/FileCard.tsx` (FR-011)
 - [X] T025 [US2] Crear vista Unir con cola sortable dnd-kit en `ctools/src/tools/merge/MergePage.tsx` (FR-010/FR-012, mín. 2 archivos)
-- [ ] T026 [US2] Integrar progreso, motor, SuccessScreen y avisos (contraseña, formato, ≥50 MB) en `ctools/src/tools/merge/MergePage.tsx`
+- [X] T026 [US2] Integrar progreso, motor, SuccessScreen y avisos (contraseña, formato, ≥50 MB) en `ctools/src/tools/merge/MergePage.tsx`
 
 **Checkpoint**: US1 + US2 funcionan independientes (MVP usable)
 
