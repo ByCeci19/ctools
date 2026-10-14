@@ -67,10 +67,17 @@ export default function Dropzone({ accept, multiple = true, onFiles, onReject, t
       <input {...getInputProps()} />
       <FileUp className="h-10 w-10 text-accent" aria-hidden="true" />
       <p className="text-lg font-semibold text-gray-800">
-        {title ?? (isDragActive ? 'Suelta los archivos aquí' : 'Arrastra tus archivos aquí')}
+        {title ??
+          (isDragActive
+            ? multiple
+              ? 'Suelta los archivos aquí'
+              : 'Suelta el archivo aquí'
+            : multiple
+              ? 'Arrastra tus archivos aquí'
+              : 'Arrastra tu archivo aquí')}
       </p>
       <p className="text-sm text-gray-500">
-        {hint ?? `o haz clic para seleccionar (${accept}, varios permitidos)`}
+        {hint ?? `o haz clic para seleccionar (${accept}${multiple ? ', varios permitidos' : ''})`}
       </p>
     </div>
   )

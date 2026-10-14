@@ -45,10 +45,14 @@ export default function RemovePagesPage() {
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null)
   const [result, setResult] = useState<{ bytes: Uint8Array; filename: string } | null>(null)
   const abortRef = useRef<AbortController | null>(null)
+  // Generación de carga: invalida miniaturas en vuelo si se resetea o se
+  // desmonta antes de que terminen (evita ObjectURLs huérfanas, FR-026).
+  const loadRef = useRef(0)
 
   // Libera miniaturas al desmontar (constitución IV).
   useEffect(() => {
     return () => {
+      loadRef.current += 1
       setDoc((current) => {
         if (current) revokeThumbs(current.thumbs)
         return current
@@ -58,6 +62,7 @@ export default function RemovePagesPage() {
 
   // "Empezar de nuevo" / "Usar otro archivo": limpia todo (FR-024/FR-026).
   const resetAll = useCallback(() => {
+    loadRef.current += 1
     setDoc((current) => {
       if (current) revokeThumbs(current.thumbs)
       return null
@@ -81,13 +86,23 @@ export default function RemovePagesPage() {
         return
       }
       resetAll()
+      const loadId = loadRef.current
       const bytes = new Uint8Array(await file.arrayBuffer())
       try {
         const pdf = await loadPdfDocument(bytes)
+        if (loadRef.current !== loadId) {
+          await closePdfDocument(pdf)
+          return
+        }
         const pageCount = getPdfPageCount(pdf)
         setDoc({ name: file.name, bytes, pageCount, thumbs: Array(pageCount).fill(null), thumbsLoaded: 0 })
         for (let page = 1; page <= pageCount; page++) {
           const url = await renderPageThumbnail(pdf, page)
+          if (loadRef.current !== loadId) {
+            URL.revokeObjectURL(url)
+            await closePdfDocument(pdf)
+            return
+          }
           setDoc((current) =>
             current
               ? {
@@ -100,6 +115,7 @@ export default function RemovePagesPage() {
         }
         await closePdfDocument(pdf)
       } catch (error) {
+        if (loadRef.current !== loadId) return
         resetAll()
         setNotice(
           isPasswordError(error)

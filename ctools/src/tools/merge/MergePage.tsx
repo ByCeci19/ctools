@@ -84,6 +84,9 @@ export default function MergePage() {
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null)
   const [result, setResult] = useState<{ bytes: Uint8Array; filename: string } | null>(null)
   const abortRef = useRef<AbortController | null>(null)
+  // Generación de carga: invalida miniaturas en vuelo si se resetea o se
+  // desmonta antes de que terminen (evita ObjectURLs huérfanas, FR-026).
+  const loadRef = useRef(0)
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -93,6 +96,7 @@ export default function MergePage() {
   // Libera miniaturas al desmontar (constitución IV).
   useEffect(() => {
     return () => {
+      loadRef.current += 1
       setItems((current) => {
         for (const item of current) {
           if (item.thumbnailUrl) URL.revokeObjectURL(item.thumbnailUrl)
@@ -111,6 +115,7 @@ export default function MergePage() {
   }, [])
 
   const handleFiles = useCallback(async (files: File[]) => {
+    const loadId = loadRef.current
     for (const file of files) {
       const rejected = noticeForFile(file.name, '.pdf')
       if (rejected) {
@@ -120,14 +125,23 @@ export default function MergePage() {
       const bytes = new Uint8Array(await file.arrayBuffer())
       try {
         const doc = await loadPdfDocument(bytes)
+        if (loadRef.current !== loadId) {
+          await closePdfDocument(doc)
+          return
+        }
         const pageCount = getPdfPageCount(doc)
         const thumbnailUrl = await renderPageThumbnail(doc, 1)
         await closePdfDocument(doc)
+        if (loadRef.current !== loadId) {
+          URL.revokeObjectURL(thumbnailUrl)
+          return
+        }
         setItems((current) => [
           ...current,
           { id: newId(), name: file.name, sizeBytes: file.size, bytes, pageCount, thumbnailUrl },
         ])
       } catch (error) {
+        if (loadRef.current !== loadId) return
         setNotice(
           isPasswordError(error)
             ? { kind: 'password', detail: file.name }
@@ -190,6 +204,7 @@ export default function MergePage() {
 
   // "Empezar de nuevo": limpia cola, miniaturas, resultado y avisos (FR-024/FR-026).
   const handleReset = useCallback(() => {
+    loadRef.current += 1
     setItems((current) => {
       for (const item of current) {
         if (item.thumbnailUrl) URL.revokeObjectURL(item.thumbnailUrl)
