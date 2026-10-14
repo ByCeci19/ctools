@@ -1,7 +1,9 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { FileText } from 'lucide-react'
 import Alert from '../../components/Alert'
 import Dropzone from '../../components/Dropzone'
+import ProgressBar from '../../components/ProgressBar'
+import SuccessScreen from '../../components/SuccessScreen'
 import { formatBytes } from '../../components/FileCard'
 import { downloadBytes } from '../../lib/download'
 import { resultFilename } from '../../lib/filenames'
@@ -14,14 +16,16 @@ interface LoadedDocx {
   bytes: Uint8Array
 }
 
-// Vista Word a PDF: tarjeta de preparación simple (nombre, tamaño y
-// "listo para convertir", FR-019) y botón de conversión. El progreso con
-// barra, la cancelación y la pantalla de éxito llegan en T034.
+// Vista Word a PDF: 1) carga con validación (.doc legacy → aviso FR-007),
+// 2) tarjeta de preparación, 3) conversión cancelable con progreso y
+// pantalla de éxito con reset total.
 export default function WordToPdfPage() {
   const [doc, setDoc] = useState<LoadedDocx | null>(null)
   const [notice, setNotice] = useState<UserNotice | null>(null)
-  const [converting, setConverting] = useState(false)
+  const [phase, setPhase] = useState<'config' | 'working' | 'done'>('config')
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null)
+  const [result, setResult] = useState<{ bytes: Uint8Array; filename: string } | null>(null)
+  const abortRef = useRef<AbortController | null>(null)
 
   const handleFiles = useCallback(async (files: File[]) => {
     const file = files[0]
@@ -36,19 +40,60 @@ export default function WordToPdfPage() {
   }, [])
 
   const handleConvert = useCallback(async () => {
-    if (!doc || converting) return
-    setConverting(true)
+    if (!doc || phase !== 'config') return
+    const controller = new AbortController()
+    abortRef.current = controller
+    setPhase('working')
     setNotice(null)
     try {
-      const out = await convertDocxToPdf(doc.bytes, (done, total) => setProgress({ done, total }))
-      downloadBytes(out, 'application/pdf', resultFilename(doc.name, 'pdf'))
+      const out = await convertDocxToPdf(
+        doc.bytes,
+        (done, total) => setProgress({ done, total }),
+        controller.signal,
+      )
+      setResult({ bytes: out, filename: resultFilename(doc.name, 'pdf') })
+      setPhase('done')
     } catch {
-      setNotice({ kind: 'invalid-format', detail: `${doc.name} no se pudo convertir a PDF.` })
+      if (controller.signal.aborted) {
+        // Cancelado por el usuario: vuelta a la configuración sin aviso (FR-030).
+        setPhase('config')
+      } else {
+        setNotice({ kind: 'invalid-format', detail: `${doc.name} no se pudo convertir a PDF.` })
+        setPhase('config')
+      }
     } finally {
-      setConverting(false)
       setProgress(null)
+      abortRef.current = null
     }
-  }, [doc, converting])
+  }, [doc, phase])
+
+  const handleCancel = useCallback(() => {
+    abortRef.current?.abort()
+  }, [])
+
+  const handleDownload = useCallback(() => {
+    if (result) downloadBytes(result.bytes, 'application/pdf', result.filename)
+  }, [result])
+
+  // "Empezar de nuevo": limpia documento, resultado y avisos (FR-024/FR-026).
+  const handleReset = useCallback(() => {
+    setDoc(null)
+    setResult(null)
+    setNotice(null)
+    setProgress(null)
+    setPhase('config')
+  }, [])
+
+  if (phase === 'done' && result) {
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <h1 className="text-2xl font-extrabold text-gray-900">Word a PDF</h1>
+        </div>
+        <SuccessScreen filename={result.filename} onDownload={handleDownload} onReset={handleReset} />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -62,7 +107,7 @@ export default function WordToPdfPage() {
         {doc && (
           <button
             type="button"
-            onClick={() => setDoc(null)}
+            onClick={handleReset}
             className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:border-accent hover:text-accent"
           >
             Usar otro archivo
@@ -91,16 +136,22 @@ export default function WordToPdfPage() {
             </span>
           </div>
 
+          {phase === 'working' && progress && (
+            <ProgressBar
+              value={(progress.done / progress.total) * 100}
+              label={`Convirtiendo página ${progress.done} de ${progress.total}`}
+              onCancel={handleCancel}
+            />
+          )}
+
           <div className="flex flex-col items-stretch gap-2">
             <button
               type="button"
               onClick={handleConvert}
-              disabled={converting}
+              disabled={phase !== 'config'}
               className="rounded-lg bg-accent px-6 py-3 text-base font-semibold text-white hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {converting && progress
-                ? `Convirtiendo página ${progress.done} de ${progress.total}…`
-                : 'Convertir a PDF'}
+              {phase === 'working' ? 'Convirtiendo…' : 'Convertir a PDF'}
             </button>
           </div>
         </>

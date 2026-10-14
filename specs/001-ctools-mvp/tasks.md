@@ -104,7 +104,7 @@
 
 - [X] T032 [US4] Implementar render A4 + paginado a PDF en `ctools/src/lib/docx-to-pdf.ts` (docx-preview + html2canvas + jspdf, R6)
 - [X] T033 [US4] Crear vista Word→PDF con tarjeta de preparación en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx` (FR-019)
-- [ ] T034 [US4] Integrar progreso, cancelar, SuccessScreen y aviso `.doc` legacy en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx`
+- [X] T034 [US4] Integrar progreso, cancelar, SuccessScreen y aviso `.doc` legacy en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx`
 
 **Checkpoint**: US1–US4 independientes
 
