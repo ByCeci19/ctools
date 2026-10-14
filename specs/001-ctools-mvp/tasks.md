@@ -87,8 +87,8 @@
 **Independent Test**: PDF 8 páginas, clic en 1 y 3, rango "5-8", intento de borrado total bloqueado (quickstart escenario 3)
 
 - [X] T027 [US3] Implementar motor de filtrado con pdf-lib en `ctools/src/lib/pdf-engine.ts` (`filterEngine`, FR-018)
-- [ ] T028 [P] [US3] Crear `ThumbnailGrid` con overlay "X" roja en `ctools/src/components/ThumbnailGrid.tsx` (FR-014/FR-015)
-- [ ] T029 [P] [US3] Crear `RangeInput` bidireccional en `ctools/src/components/RangeInput.tsx` (FR-016/FR-017)
+- [X] T028 [US3] Crear `ThumbnailGrid` con overlay "X" roja en `ctools/src/components/ThumbnailGrid.tsx` (FR-014/FR-015)
+- [X] T029 [US3] Crear `RangeInput` bidireccional en `ctools/src/components/RangeInput.tsx` (FR-016/FR-017)
 - [ ] T030 [US3] Crear vista Eliminar con sincronización visual↔rangos en `ctools/src/tools/remove-pages/RemovePagesPage.tsx`
 - [ ] T031 [US3] Integrar progreso, motor, SuccessScreen y aviso `all-pages` en `ctools/src/tools/remove-pages/RemovePagesPage.tsx`
 
