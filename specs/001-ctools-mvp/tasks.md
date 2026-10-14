@@ -58,7 +58,7 @@
 
 **Independent Test**: Abrir `#/`, ver bienvenida + 4 tarjetas + sello, navegar a cada ruta y volver con el logo (quickstart escenario 1)
 
-- [ ] T021 [P] [US1] Crear página Dashboard en `ctools/src/tools/dashboard/Dashboard.tsx` (bienvenida, tarjetas, sello)
+- [X] T021 [US1] Crear página Dashboard en `ctools/src/tools/dashboard/Dashboard.tsx` (bienvenida, tarjetas, sello)
 - [ ] T022 [US1] Registrar ruta `#/` y enlazar tarjetas a las 4 herramientas en `ctools/src/routes.tsx`
 
 **Checkpoint**: US1 funcional y navegable sin herramientas
