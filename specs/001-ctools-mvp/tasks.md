@@ -46,7 +46,7 @@
 - [X] T017 Implementar parser bidireccional de rangos en `ctools/src/lib/range-parser.ts` (`"1, 3, 5-8"` ↔ Set, FR-016)
 - [X] T018 Implementar infraestructura de render PDF con worker local en `ctools/src/lib/pdf-render.ts` (miniaturas canvas, R4)
 - [X] T019 Tests unitarios de `range-parser` y `filenames` en `ctools/tests/unit/range-filenames.test.ts`
-- [ ] T020 Verificar build estática y carga con rutas relativas en `ctools/dist/` (`npm run build && npm run preview`)
+- [X] T020 Verificar build estática y carga con rutas relativas en `ctools/dist/` (`npm run build && npm run preview`)
 
 **Checkpoint**: Foundation ready — las historias pueden implementarse en paralelo
 
