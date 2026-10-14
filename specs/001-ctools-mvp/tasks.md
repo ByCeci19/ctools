@@ -102,7 +102,7 @@
 
 **Independent Test**: .docx con formato/lista/tabla/imagen → PDF con esos elementos en orden; .doc y .txt rechazados con aviso (quickstart escenarios 4 y 6)
 
-- [ ] T032 [P] [US4] Implementar render A4 + paginado a PDF en `ctools/src/lib/docx-to-pdf.ts` (docx-preview + html2canvas + jspdf, R6)
+- [X] T032 [US4] Implementar render A4 + paginado a PDF en `ctools/src/lib/docx-to-pdf.ts` (docx-preview + html2canvas + jspdf, R6)
 - [ ] T033 [US4] Crear vista Word→PDF con tarjeta de preparación en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx` (FR-019)
 - [ ] T034 [US4] Integrar progreso, cancelar, SuccessScreen y aviso `.doc` legacy en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx`
 
