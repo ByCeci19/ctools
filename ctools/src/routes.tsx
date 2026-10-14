@@ -3,6 +3,7 @@ import Dashboard from './tools/dashboard/Dashboard'
 import MergePage from './tools/merge/MergePage'
 import RemovePagesPage from './tools/remove-pages/RemovePagesPage'
 import WordToPdfPage from './tools/word-to-pdf/WordToPdfPage'
+import PdfToWordPage from './tools/pdf-to-word/PdfToWordPage'
 
 // Metadatos de las 5 rutas (contrato `contracts/routes.md`).
 // Las vistas reales llegan en sus historias (T022, T025, T030, T033, T038);
@@ -34,7 +35,8 @@ export const routes: RouteObject[] = [
   { path: '/unir-pdf', element: <MergePage /> },
   { path: '/eliminar-paginas', element: <RemovePagesPage /> },
   { path: '/word-a-pdf', element: <WordToPdfPage /> },
-  ...TOOLS.filter((tool) => tool.path !== '/unir-pdf' && tool.path !== '/eliminar-paginas' && tool.path !== '/word-a-pdf').map((tool) => ({
+  { path: '/pdf-a-word', element: <PdfToWordPage /> },
+  ...TOOLS.filter((tool) => tool.path !== '/unir-pdf' && tool.path !== '/eliminar-paginas' && tool.path !== '/word-a-pdf' && tool.path !== '/pdf-a-word').map((tool) => ({
     path: tool.path,
     element: <Placeholder title={tool.title} />,
   })),
