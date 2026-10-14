@@ -35,7 +35,7 @@
 **⚠️ CRITICAL**: Ninguna historia empieza hasta completar esta fase
 
 - [X] T008 Crear registro de rutas HashRouter en `ctools/src/routes.tsx` según `contracts/routes.md`
-- [ ] T009 Crear shell App con Header/Footer en `ctools/src/App.tsx` (logo, nav 4 rutas, pie FR-003)
+- [X] T009 Crear shell App con Header/Footer en `ctools/src/App.tsx` (logo, nav 4 rutas, pie FR-003)
 - [ ] T010 [P] Implementar `PrivacyBadge` en `ctools/src/components/PrivacyBadge.tsx` (texto FR-001)
 - [ ] T011 [P] Implementar `Alert` de avisos en español en `ctools/src/components/Alert.tsx` (kinds de `UserNotice`)
 - [ ] T012 [P] Implementar `Dropzone` con validación de extensión en `ctools/src/components/Dropzone.tsx` (FR-006/FR-007)
