@@ -1,0 +1,21 @@
+# Dependencias y build
+node_modules/
+dist/
+build/
+*.log
+
+# Entorno
+.env
+.env*
+!.env.example
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# Tests y cobertura
+coverage/

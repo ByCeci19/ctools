@@ -1,0 +1,5 @@
+/* Estilos base mínimos (T001). T005 cablea Tailwind y la paleta. */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
