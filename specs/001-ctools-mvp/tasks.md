@@ -24,7 +24,7 @@
 - [X] T004 Configurar `index.html` en `ctools/index.html` (lang es, título FR-027, favicon C FR-028, `public/favicon-c.svg`)
 - [X] T005 Configurar Tailwind con paleta (fondo `#F5F5FA`, acento `#E5322D`) en `ctools/src/styles/tailwind.css`
 - [X] T006 Crear workflow de deploy a Pages en `ctools/.github/workflows/deploy.yml` (npm ci, build, dist en push a main)
-- [ ] T007 Configurar Vitest + React Testing Library en `ctools/vite.config.ts` y `ctools/tests/setup.ts`
+- [X] T007 Configurar Vitest + React Testing Library en `ctools/vite.config.ts` y `ctools/tests/setup.ts`
 
 ---
 
