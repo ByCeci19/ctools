@@ -117,7 +117,7 @@
 **Independent Test**: PDF 2 páginas → .docx con párrafos y saltos; PDF sin caracteres → aviso previo (quickstart escenarios 5 y 6)
 
 - [X] T035 [US5] Implementar extracción y agrupación por coordenadas en `ctools/src/lib/pdf-text.ts` (getTextContent, líneas/párrafos/títulos, R7)
-- [ ] T036 [P] [US5] Implementar empaquetado .docx en `ctools/src/lib/pdf-to-docx.ts` (librería docx, umbral cero caracteres FR-022)
+- [X] T036 [US5] Implementar empaquetado .docx en `ctools/src/lib/pdf-to-docx.ts` (librería docx, umbral cero caracteres FR-022)
 - [ ] T037 [P] [US5] Tests unitarios de agrupación de texto en `ctools/tests/unit/pdf-text.test.ts`
 - [ ] T038 [US5] Crear vista PDF→Word con aviso de escaneado en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx` (FR-021/FR-022)
 - [ ] T039 [US5] Integrar progreso, cancelar, SuccessScreen y reintento en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx`
