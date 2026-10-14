@@ -196,8 +196,8 @@ saltos de página; repetir con un PDF escaneado y verificar el aviso previo.
   hasta corregirlo; la selección visual previa se conserva.
 - ¿Qué ocurre si en "Unir PDF" solo hay 0–1 archivos? El botón "Unir PDF"
   permanece deshabilitado con indicación de mínimo 2 archivos.
-- ¿Qué ocurre con archivos grandes (50 MB o más, o muchas páginas)? Se
-  muestra una advertencia suave sin bloquear; la interfaz sigue
+- ¿Qué ocurre con archivos grandes (50 MB o más; el disparador es el peso,
+  no el conteo de páginas)? Se muestra una advertencia suave sin bloquear; la interfaz sigue
   respondiendo, muestra progreso/carga por archivo o página y permite
   cancelar o reintentar.
 - ¿Qué ocurre si el usuario recarga o pulsa "Empezar de nuevo" tras el
