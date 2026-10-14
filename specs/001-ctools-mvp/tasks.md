@@ -118,9 +118,9 @@
 
 - [X] T035 [US5] Implementar extracción y agrupación por coordenadas en `ctools/src/lib/pdf-text.ts` (getTextContent, líneas/párrafos/títulos, R7)
 - [X] T036 [US5] Implementar empaquetado .docx en `ctools/src/lib/pdf-to-docx.ts` (librería docx, umbral cero caracteres FR-022)
-- [ ] T037 [P] [US5] Tests unitarios de agrupación de texto en `ctools/tests/unit/pdf-text.test.ts`
-- [ ] T038 [US5] Crear vista PDF→Word con aviso de escaneado en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx` (FR-021/FR-022)
-- [ ] T039 [US5] Integrar progreso, cancelar, SuccessScreen y reintento en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx`
+- [X] T037 [P] [US5] Tests unitarios de agrupación de texto en `ctools/tests/unit/pdf-text.test.ts`
+- [X] T038 [US5] Crear vista PDF→Word con aviso de escaneado en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx` (FR-021/FR-022)
+- [X] T039 [US5] Integrar progreso, cancelar, SuccessScreen y reintento en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx`
 
 **Checkpoint**: Las 5 historias funcionan independientes
 
@@ -130,9 +130,9 @@
 
 **Purpose**: Verificación transversal de privacidad, memoria, idioma y despliegue
 
-- [ ] T040 [P] Auditoría de memoria: verificar `revokeObjectURL` y limpieza en `ctools/src/lib/download.ts` y las 4 vistas (FR-026)
-- [ ] T041 [P] Revisión de textos en español y tooltips de accesibilidad en `ctools/src/components/*.tsx` y `ctools/src/tools/*/*.tsx` (FR-004)
-- [ ] T042 Verificación offline completa tras carga inicial según `specs/001-ctools-mvp/quickstart.md` escenario 7 (FR-005)
+- [X] T040 [P] Auditoría de memoria: verificar `revokeObjectURL` y limpieza en `ctools/src/lib/download.ts` y las 4 vistas (FR-026)
+- [X] T041 [P] Revisión de textos en español y tooltips de accesibilidad en `ctools/src/components/*.tsx` y `ctools/src/tools/*/*.tsx` (FR-004)
+- [X] T042 Verificación offline completa tras carga inicial según `specs/001-ctools-mvp/quickstart.md` escenario 7 (FR-005)
 - [ ] T043 Ejecutar validación e2e guiada completa de `specs/001-ctools-mvp/quickstart.md` escenarios 1–9
 - [ ] T044 Verificar deploy en GitHub Pages con refresh en las 5 rutas y assets relativos (plan § Despliegue)
 
