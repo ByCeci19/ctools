@@ -133,7 +133,7 @@
 - [X] T040 [P] Auditoría de memoria: verificar `revokeObjectURL` y limpieza en `ctools/src/lib/download.ts` y las 4 vistas (FR-026)
 - [X] T041 [P] Revisión de textos en español y tooltips de accesibilidad en `ctools/src/components/*.tsx` y `ctools/src/tools/*/*.tsx` (FR-004)
 - [X] T042 Verificación offline completa tras carga inicial según `specs/001-ctools-mvp/quickstart.md` escenario 7 (FR-005)
-- [ ] T043 Ejecutar validación e2e guiada completa de `specs/001-ctools-mvp/quickstart.md` escenarios 1–9
+- [X] T043 Ejecutar validación e2e guiada completa de `specs/001-ctools-mvp/quickstart.md` escenarios 1–9
 - [ ] T044 Verificar deploy en GitHub Pages con refresh en las 5 rutas y assets relativos (plan § Despliegue)
 
 ---
