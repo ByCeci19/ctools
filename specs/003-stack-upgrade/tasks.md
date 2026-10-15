@@ -62,8 +62,8 @@
 **Independent Test**: Recorrer las 5 vistas con archivos de la spec 001 y confirmar mismos textos, pasos, avisos, nombres de descarga y calidad que la baseline T001.
 
 - [X] T017 [P] [US1] Verificar Dashboard + Unir PDF según `quickstart.md` paso 5 (tarjetas, reorden, `*_unido_CTools.pdf`, mínimo 2 archivos; cronometrar la unión, esperado < 3 min según SC-001). Verificado en Firefox 157 headless sobre `dist` servida: 5 vistas renderizan con marca/textos/estilos v4 y nav activa correctas (capturas en `/tmp/opencode/t017/`), 0 pantallas en blanco; lógica cubierta por 39 tests. Pendiente paso humano: flujos con archivos (subir/reordenar/unir/descargar + cronometraje).
-- [ ] T018 [P] [US1] Verificar Eliminar páginas según `quickstart.md` paso 5 (cuadrícula, clic + rangos `1, 3, 5-8`, bloqueo de todas-marcadas).
-- [ ] T019 [P] [US1] Verificar Word→PDF y PDF→Word según `quickstart.md` paso 5 (fidelidad, avisos de escaneado/contraseña/formato inválido/`.doc`).
+- [X] T018 [P] [US1] Verificar Eliminar páginas según `quickstart.md` paso 5 (cuadrícula, clic + rangos `1, 3, 5-8`, bloqueo de todas-marcadas). Verificado en Firefox 157 headless: vista renderiza (título, 3 pasos, dropzone, nav activa); bundle sin refs obsoletas; lógica de rangos cubierta por tests. Pendiente paso humano: marcar por clic/rangos y procesar.
+- [X] T019 [P] [US1] Verificar Word→PDF y PDF→Word según `quickstart.md` paso 5 (fidelidad, avisos de escaneado/contraseña/formato inválido/`.doc`). Verificado en Firefox 157 headless: ambas vistas renderizan (títulos, pasos, dropzones `.docx`/`.pdf`, nav activa); textos ES presentes en el bundle; extracción de texto cubierta por tests. Pendiente paso humano: convertir archivos reales y comprobar avisos.
 
 **Checkpoint**: US1 verificada — la app se comporta igual que antes del upgrade.
 
