@@ -36,7 +36,7 @@
 - [X] T006 Actualizar `ctools/vite.config.ts`: plugins React 5 + Tailwind v4, conservando `base: './'`, `worker: { format: 'es' }` y el bloque `test` (`globals`, `jsdom`, `setupFiles`). Hecho con plugin-react 6.x (línea que empareja Vite 8) + `@tailwindcss/vite`; resto intacto.
 - [X] T007 Migrar `ctools/src/styles/tailwind.css` a `@import "tailwindcss"` + bloque `@theme` con los 4 tokens (`#F5F5FA`, `#E5322D`, `#B71F1B`, sombra `card`) y eliminar `ctools/tailwind.config.js` y `ctools/postcss.config.js`. Hecho; tokens verificados contra clases en uso (accent/accent-dark/canvas/shadow-card).
 - [X] T008 Actualizar `ctools/tsconfig.app.json` y `ctools/tsconfig.node.json` a compatibilidad TS 6/7 manteniendo `strict`, `noUnusedLocals`, `noUnusedParameters`, `jsx: react-jsx`. Verificado con tsc 7.0.2 (`--showConfig` válido en ambas): sin cambios necesarios, estricto intacto.
-- [ ] T009 Actualizar `.github/workflows/deploy.yml`: `node-version: 24`.
+- [X] T009 Actualizar `.github/workflows/deploy.yml`: `node-version: 24`. Hecho (era 20).
 - [ ] T010 Puerta G1 toolchain: `npm run build` en `ctools/` en verde con `ctools/dist` generada.
 
 ### Grupo 2 — Runtime + `src/` (R1, R2, R5)
