@@ -1,4 +1,4 @@
-import { Navigate, type RouteObject } from 'react-router-dom'
+import { Navigate, type RouteObject } from 'react-router'
 import Dashboard from './tools/dashboard/Dashboard'
 import MergePage from './tools/merge/MergePage'
 import RemovePagesPage from './tools/remove-pages/RemovePagesPage'

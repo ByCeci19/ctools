@@ -37,11 +37,11 @@
 - [X] T007 Migrar `ctools/src/styles/tailwind.css` a `@import "tailwindcss"` + bloque `@theme` con los 4 tokens (`#F5F5FA`, `#E5322D`, `#B71F1B`, sombra `card`) y eliminar `ctools/tailwind.config.js` y `ctools/postcss.config.js`. Hecho; tokens verificados contra clases en uso (accent/accent-dark/canvas/shadow-card).
 - [X] T008 Actualizar `ctools/tsconfig.app.json` y `ctools/tsconfig.node.json` a compatibilidad TS 6/7 manteniendo `strict`, `noUnusedLocals`, `noUnusedParameters`, `jsx: react-jsx`. Verificado con tsc 7.0.2 (`--showConfig` válido en ambas): sin cambios necesarios, estricto intacto.
 - [X] T009 Actualizar `.github/workflows/deploy.yml`: `node-version: 24`. Hecho (era 20).
-- [ ] T010 Puerta G1 toolchain: `npm run build` en `ctools/` en verde con `ctools/dist` generada. INTENTO 2026-10-15: toolchain OK (Vite 8 transforma 2363 módulos, CSS v4 21 kB, worker pdfjs6 1.26 MB empaquetado) pero build ROJA por causa única `react-router-dom` irresoluble desde `src/App.tsx` → alcance T011 (grupo 2). Reintentar tras T011; verificar en T014.
+- [X] T010 Puerta G1 toolchain: `npm run build` en `ctools/` en verde con `ctools/dist` generada. VERDE tras T011 (reintento previsto): dist generada (worker 1.26 MB, CSS 21 kB). Nota intento previo: toolchain OK pero roja solo por `react-router-dom` (alcance T011).
 
 ### Grupo 2 — Runtime + `src/` (R1, R2, R5)
 
-- [ ] T011 Migrar imports del enrutador a `"react-router"` en `ctools/src/App.tsx`, `ctools/src/routes.tsx` y `ctools/src/tools/dashboard/Dashboard.tsx` (R1: `HashRouter/Link/NavLink/Navigate/useRoutes/RouteObject`).
+- [X] T011 Migrar imports del enrutador a `"react-router"` en `ctools/src/App.tsx`, `ctools/src/routes.tsx` y `ctools/src/tools/dashboard/Dashboard.tsx` (R1: `HashRouter/Link/NavLink/Navigate/useRoutes/RouteObject`). Hecho; cero refs restantes y build verde.
 - [ ] T012 Subir `pdfjs-dist` a 6.x y verificar `ctools/src/lib/pdf-render.ts` (`?url` + `GlobalWorkerOptions.workerSrc`); retrabajo del worker si 6.x lo exige, API del módulo intacta (R5).
 - [ ] T013 Subir resto del runtime (jspdf 3.x, pdf-lib, docx, docx-preview, html2canvas, dnd-kit, lucide-react, react-dropzone) y corregir usos/tipos rotos en `ctools/src/lib/` y `ctools/src/components/`.
 - [ ] T014 Puerta G1 runtime: `npm run build` en `ctools/` en verde tras el runtime.

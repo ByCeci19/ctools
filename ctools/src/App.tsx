@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { HashRouter, Link, NavLink, useRoutes } from 'react-router-dom'
+import { HashRouter, Link, NavLink, useRoutes } from 'react-router'
 import { Menu, X } from 'lucide-react'
 import { TOOLS, routes } from './routes.tsx'
 
