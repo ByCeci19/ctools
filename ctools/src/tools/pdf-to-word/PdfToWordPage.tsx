@@ -183,10 +183,10 @@ export default function PdfToWordPage() {
       ) : (
         <>
           <div className="flex items-center gap-4 rounded-xl bg-white p-5 shadow-card">
-            <span className="rounded-lg bg-red-50 p-3 text-accent">
+            <span className="shrink-0 rounded-lg bg-red-50 p-3 text-accent">
               <FileText className="h-8 w-8" aria-hidden="true" />
             </span>
-            <span className="min-w-0">
+            <span className="min-w-0 flex-1 overflow-hidden">
               <span className="block truncate text-base font-semibold text-gray-800" title={doc.name}>
                 {doc.name}
               </span>
