@@ -18,7 +18,7 @@
 
 **Purpose**: Línea base verificada antes de tocar UI
 
-- [ ] T001 Verificar línea base en `ctools/` (`npm run build`, `npm run test`, 21 tests en verde) sin cambios
+- [X] T001 Verificar línea base en `ctools/` (`npm run build`, `npm run test`, 21 tests en verde) sin cambios
 
 ---
 
