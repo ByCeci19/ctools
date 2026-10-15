@@ -55,7 +55,7 @@
 **Independent Test**: Cada herramienta vacía a 360 px muestra "Toca para seleccionar…"; en escritorio texto de arrastrar (quickstart escenario 2)
 
 - [X] T006 [P] [US2] Test de textos por variante en `ctools/tests/unit/dropzone.test.tsx` (spans móvil/escritorio presentes)
-- [ ] T007 [P] [US2] Implementar textos conmutados por CSS en `ctools/src/components/Dropzone.tsx` (R3, sin JS nuevo)
+- [X] T007 [P] [US2] Implementar textos conmutados por CSS en `ctools/src/components/Dropzone.tsx` (R3, sin JS nuevo)
 
 **Checkpoint**: US1 + US2 listas (entrada móvil completa)
 
