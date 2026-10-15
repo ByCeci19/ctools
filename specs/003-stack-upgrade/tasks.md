@@ -49,7 +49,7 @@
 ### Grupo 3 — Tests existentes (R7)
 
 - [X] T015 Adaptar los 6 ficheros de `ctools/tests/` a Vitest 5 / React 19 sin añadir pruebas nuevas. Verificado: 39/39 en verde con Vitest 5.0.4 sin cambios (APIs `render/screen/fireEvent` estables en TLR 16).
-- [ ] T016 Puertas G2+G3: `npm test` (`vitest run`) en verde sin fallos y `npm ci` limpio en `ctools/`.
+- [X] T016 Puertas G2+G3: `npm test` (`vitest run`) en verde sin fallos y `npm ci` limpio en `ctools/`. Verificado: 39/39 + `npm ci` desde cero con salida cero.
 
 **Checkpoint**: Stack nuevo instalado, compilando y con tests en verde — la verificación por historias puede empezar.
 
