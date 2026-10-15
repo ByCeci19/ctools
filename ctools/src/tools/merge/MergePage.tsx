@@ -22,6 +22,7 @@ import Dropzone from '../../components/Dropzone'
 import FileCard from '../../components/FileCard'
 import ProgressBar from '../../components/ProgressBar'
 import SuccessScreen from '../../components/SuccessScreen'
+import StickyActionBar from '../../components/StickyActionBar'
 import { downloadBytes } from '../../lib/download'
 import { mergeFilename } from '../../lib/filenames'
 import {
@@ -268,7 +269,7 @@ export default function MergePage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 pb-28 md:pb-0">
       <div>
         <h1 className="text-2xl font-extrabold text-gray-900">Unir PDF</h1>
         <p className="mt-1 text-gray-600">
@@ -310,7 +311,7 @@ export default function MergePage() {
         />
       )}
 
-      <div className="flex flex-col items-stretch gap-2">
+      <div className="flex flex-col items-stretch gap-2 max-md:hidden">
         <button
           type="button"
           onClick={handleMerge}
@@ -323,6 +324,14 @@ export default function MergePage() {
           <p className="text-center text-sm text-gray-500">Añade al menos 2 archivos PDF para unirlos.</p>
         )}
       </div>
+
+      <StickyActionBar
+        label="Unir PDF"
+        disabled={items.length < 2 || phase !== 'config'}
+        hint={items.length < 2 && phase === 'config' ? 'Añade al menos 2 archivos PDF para unirlos.' : undefined}
+        visible={items.length > 0 && phase === 'config'}
+        onAction={handleMerge}
+      />
     </div>
   )
 }
