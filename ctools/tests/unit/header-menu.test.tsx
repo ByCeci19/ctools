@@ -4,6 +4,12 @@ import App from '../../src/App'
 
 const TOOL_NAMES = ['Unir PDF', 'Eliminar páginas PDF', 'Word a PDF', 'PDF a Word']
 
+function panel(): HTMLElement {
+  const element = document.getElementById('menu-movil')
+  if (!element) throw new Error('Panel del menú no abierto')
+  return element
+}
+
 function openMenu() {
   render(<App />)
   const button = screen.getByRole('button', { name: /menú/i })
@@ -15,17 +21,16 @@ describe('Header menu móvil', () => {
   it('muestra botón de menú y abre el panel con las 4 herramientas', () => {
     const button = openMenu()
     expect(button.getAttribute('aria-expanded')).toBe('true')
-    const nav = screen.getByRole('navigation', { name: /herramientas/i })
     for (const name of TOOL_NAMES) {
-      expect(within(nav).getByRole('link', { name })).toBeDefined()
+      expect(within(panel()).getByRole('link', { name })).toBeDefined()
     }
   })
 
   it('elegir una herramienta navega y cierra el menú', () => {
     openMenu()
-    const nav = screen.getByRole('navigation', { name: /herramientas/i })
-    fireEvent.click(within(nav).getByRole('link', { name: 'Unir PDF' }))
+    fireEvent.click(within(panel()).getByRole('link', { name: 'Unir PDF' }))
     expect(window.location.hash).toContain('/unir-pdf')
+    expect(document.getElementById('menu-movil')).toBeNull()
     expect(screen.getByRole('button', { name: /menú/i }).getAttribute('aria-expanded')).toBe(
       'false',
     )
@@ -34,8 +39,6 @@ describe('Header menu móvil', () => {
   it('Escape cierra el menú abierto', () => {
     openMenu()
     fireEvent.keyDown(document, { key: 'Escape' })
-    expect(screen.getByRole('button', { name: /menú/i }).getAttribute('aria-expanded')).toBe(
-      'false',
-    )
+    expect(document.getElementById('menu-movil')).toBeNull()
   })
 })

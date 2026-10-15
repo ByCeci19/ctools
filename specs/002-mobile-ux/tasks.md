@@ -42,7 +42,7 @@
 **Independent Test**: A 360 px, abrir menú, saltar a las 4 herramientas y volver; a ≥768 px cabecera completa sin menú (quickstart escenario 1)
 
 - [X] T004 [US1] Test de apertura/cierre del menú en `ctools/tests/unit/header-menu.test.tsx` (abre, navega y cierra, Escape)
-- [ ] T005 [US1] Implementar menú hamburguesa en `ctools/src/App.tsx` (estado local, `aria-expanded`, cierra al navegar, nav desktop intacta)
+- [X] T005 [US1] Implementar menú hamburguesa en `ctools/src/App.tsx` (estado local, `aria-expanded`, cierra al navegar, nav desktop intacta)
 
 **Checkpoint**: US1 funcional y navegable en móvil y escritorio
 
