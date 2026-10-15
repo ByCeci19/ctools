@@ -3,6 +3,7 @@ import {
   DndContext,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   closestCenter,
   useSensor,
   useSensors,
@@ -49,14 +50,38 @@ function newId(): string {
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`
 }
 
+/** Sube el elemento `index` una posición. Puro y testeable (T008). */
+export function moveUp<T>(list: T[], index: number): T[] {
+  if (index <= 0 || index >= list.length) return [...list]
+  const next = [...list]
+  ;[next[index - 1], next[index]] = [next[index], next[index - 1]]
+  return next
+}
+
+/** Baja el elemento `index` una posición. Puro y testeable (T008). */
+export function moveDown<T>(list: T[], index: number): T[] {
+  if (index < 0 || index >= list.length - 1) return [...list]
+  const next = [...list]
+  ;[next[index], next[index + 1]] = [next[index + 1], next[index]]
+  return next
+}
+
 function SortableFileCard({
   item,
   position,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  isFirst,
+  isLast,
 }: {
   item: QueueItem
   position: number
   onRemove: () => void
+  onMoveUp: () => void
+  onMoveDown: () => void
+  isFirst: boolean
+  isLast: boolean
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: item.id,
@@ -71,6 +96,10 @@ function SortableFileCard({
       isDragging={isDragging}
       loadingThumbnail={item.thumbnailUrl === null}
       onRemove={onRemove}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+      isFirst={isFirst}
+      isLast={isLast}
     />
   )
 }
@@ -90,6 +119,8 @@ export default function MergePage() {
 
   const sensors = useSensors(
     useSensor(PointerSensor),
+    // Táctil con pulsación mantenida: el scroll normal no dispara arrastre (R4).
+    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   )
 
@@ -104,6 +135,14 @@ export default function MergePage() {
         return current
       })
     }
+  }, [])
+
+  const moveItem = useCallback((id: string, direction: 'up' | 'down') => {
+    setItems((current) => {
+      const index = current.findIndex((item) => item.id === id)
+      if (index < 0) return current
+      return direction === 'up' ? moveUp(current, index) : moveDown(current, index)
+    })
   }, [])
 
   const removeItem = useCallback((id: string) => {
@@ -247,7 +286,15 @@ export default function MergePage() {
             <ol className="flex flex-col gap-3">
               {items.map((item, index) => (
                 <li key={item.id}>
-                  <SortableFileCard item={item} position={index + 1} onRemove={() => removeItem(item.id)} />
+                  <SortableFileCard
+                    item={item}
+                    position={index + 1}
+                    onRemove={() => removeItem(item.id)}
+                    onMoveUp={() => moveItem(item.id, 'up')}
+                    onMoveDown={() => moveItem(item.id, 'down')}
+                    isFirst={index === 0}
+                    isLast={index === items.length - 1}
+                  />
                 </li>
               ))}
             </ol>
