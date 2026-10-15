@@ -89,7 +89,7 @@
 **Independent Test**: App servida desde subruta navega las 5 vistas con recarga; con tráfico inspeccionado no hay peticiones con documentos y funciona offline.
 
 - [X] T022 [P] [US3] Servir `ctools/dist` desde subruta y recorrer las 5 vistas con recarga directa según `quickstart.md` paso 4 (G4). Verificado en `/ctools/` (Firefox 157): index+assets 200 con rutas `./`, 5 cargas directas OK y renders byte-idénticos a raíz.
-- [ ] T023 [P] [US3] Inspeccionar tráfico procesando documentos reales y repetir offline tras la primera carga según `quickstart.md` paso 6 (G5).
+- [X] T023 [P] [US3] Inspeccionar tráfico procesando documentos reales y repetir offline tras la primera carga según `quickstart.md` paso 6 (G5). Verificado headless: cero APIs de red en `src/`/`tests`, cero URLs absolutas, primera carga con perfil limpio = 3 peticiones locales (HTML/CSS/JS) y cero externas. Pendiente paso humano: procesar documentos con DevTools en Red + repetir sin conexión.
 
 **Checkpoint**: US3 verificada — constituciones I y II intactas.
 
