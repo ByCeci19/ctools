@@ -1,6 +1,18 @@
-import type { PDFDocumentProxy, TextItem } from 'pdfjs-dist'
+import type { PDFDocumentProxy } from 'pdfjs-dist'
 import { closePdfDocument, loadPdfDocument } from './pdf-render'
 import type { EngineProgress } from './pdf-engine'
+
+/**
+ * Subconjunto de `TextItem` de pdf.js usado aquí. La v6 ya no lo reexporta
+ * desde la raíz del paquete, así que se modela estructuralmente (campos
+ * leídos abajo: `str`, `transform`, `height`, `hasEOL`).
+ */
+interface PdfTextItem {
+  str: string
+  transform: number[]
+  height?: number
+  hasEOL: boolean
+}
 
 // Extracción de texto de PDF con pdf.js (R7, FR-021): fragmentos con
 // coordenadas → líneas por Y → párrafos por saltos/gaps → títulos por
@@ -30,11 +42,11 @@ export interface PdfTextResult {
   totalChars: number
 }
 
-function isTextItem(item: unknown): item is TextItem {
+function isTextItem(item: unknown): item is PdfTextItem {
   return typeof item === 'object' && item !== null && 'str' in item
 }
 
-function toFragment(item: TextItem): TextFragment | null {
+function toFragment(item: PdfTextItem): TextFragment | null {
   if (item.str === '') return null
   const size = Math.abs(Number(item.transform[0])) || item.height || 12
   return {
