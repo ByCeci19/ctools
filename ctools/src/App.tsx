@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { HashRouter, Link, NavLink, useRoutes } from 'react-router-dom'
+import { HashRouter, Link, NavLink, useRoutes } from 'react-router'
 import { Menu, X } from 'lucide-react'
 import { TOOLS, routes } from './routes.tsx'
+import { preloadPdfWorker } from './lib/pdf-render'
 
 // Cabecera fija (FR-002): logotipo con la "C" en acento y navegación
 // a las 4 herramientas + vuelta al inicio pinchando el logo.
@@ -97,6 +98,11 @@ function Footer() {
 
 function Shell() {
   const element = useRoutes(routes)
+  // El worker de PDF.js queda en memoria desde el arranque para que el modo
+  // sin conexión funcione aunque aún no se haya procesado ningún PDF (FR-014).
+  useEffect(() => {
+    preloadPdfWorker()
+  }, [])
   return (
     <div className="flex min-h-screen flex-col bg-canvas">
       <Header />

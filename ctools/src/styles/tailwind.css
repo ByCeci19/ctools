@@ -1,4 +1,9 @@
-/* Paleta CTools (T005): fondo #F5F5FA, acento #E5322D. */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Paleta CTools (Tailwind v4): fondo #F5F5FA, acento #E5322D. */
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #f5f5fa;
+  --color-accent: #e5322d;
+  --color-accent-dark: #b71f1b;
+  --shadow-card: 0 1px 3px rgba(16, 24, 40, 0.08), 0 4px 12px rgba(16, 24, 40, 0.06);
+}

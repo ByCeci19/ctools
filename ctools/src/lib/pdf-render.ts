@@ -2,16 +2,38 @@
 // El worker se empaqueta como asset relativo (`?url`), compatible con
 // `base: './'` en GitHub Pages. Todo ocurre en memoria, sin red (const. I).
 import * as pdfjsLib from 'pdfjs-dist'
-import type { PDFDocumentProxy } from 'pdfjs-dist'
+import type { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdfjs-dist'
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc
+
+// Precarga del worker al arrancar la app (FR-014): el worker vive en memoria
+// desde la primera carga, así el modo sin conexión funciona aunque todavía no
+// se haya procesado ningún PDF. Idempotente; sin `Worker` (p. ej. tests) no
+// hace nada y pdf.js lo creará bajo demanda al usarse.
+let workerPreloaded = false
+export function preloadPdfWorker(): void {
+  if (workerPreloaded || typeof Worker === 'undefined') return
+  workerPreloaded = true
+  try {
+    // Igual que la creación interna de pdf.js: el worker es un módulo ES.
+    pdfjsLib.GlobalWorkerOptions.workerPort = new Worker(workerSrc, { type: 'module' })
+  } catch {
+    // Sin worker (CSP u otro entorno): se intentará bajo demanda al procesar.
+  }
+}
+
+// pdf.js v6 retiró `PDFDocumentProxy.destroy()`; la liberación completa vive
+// en la tarea de carga, así que se conserva por documento (WeakMap).
+const loadingTasks = new WeakMap<PDFDocumentProxy, PDFDocumentLoadingTask>()
 
 /** Abre un PDF en memoria. Lanza el error original si está cifrado (FR-008). */
 export async function loadPdfDocument(data: Uint8Array): Promise<PDFDocumentProxy> {
   // Copia defensiva: el lector puede transferir el buffer subyacente.
   const task = pdfjsLib.getDocument({ data: data.slice() })
-  return task.promise
+  const doc = await task.promise
+  loadingTasks.set(doc, task)
+  return doc
 }
 
 export function getPdfPageCount(doc: PDFDocumentProxy): number {
@@ -32,7 +54,7 @@ export async function renderPageThumbnail(
   canvas.height = Math.ceil(viewport.height)
   const ctx = canvas.getContext('2d')
   if (!ctx) throw new Error('El navegador no ofrece contexto de dibujo 2D.')
-  await page.render({ canvasContext: ctx, viewport }).promise
+  await page.render({ canvas, viewport }).promise
   page.cleanup()
   const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'))
   if (!blob) throw new Error('No se pudo generar la miniatura.')
@@ -40,7 +62,13 @@ export async function renderPageThumbnail(
 }
 
 export async function closePdfDocument(doc: PDFDocumentProxy): Promise<void> {
-  await doc.destroy()
+  const task = loadingTasks.get(doc)
+  loadingTasks.delete(doc)
+  if (task) {
+    await task.destroy()
+    return
+  }
+  await doc.cleanup()
 }
 
 /** Detecta errores de PDF cifrado de pdf.js y pdf-lib (mensaje de FR-008). */

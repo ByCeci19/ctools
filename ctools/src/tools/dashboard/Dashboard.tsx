@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { FilePenLine, Files, FileText, Scissors, type LucideIcon } from 'lucide-react'
 import PrivacyBadge from '../../components/PrivacyBadge'
 import { TOOLS } from '../../routes'

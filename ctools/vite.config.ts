@@ -1,14 +1,15 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 // Base relativa: assets y workers cargan igual en `usuario.github.io/ctools/`
 // o cualquier subruta de GitHub Pages (constitución II).
-// El worker de PDF.js se referencia en `src/lib/pdf-render.ts` (T018) con
-// `new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url)`;
+// El worker de PDF.js se referencia en `src/lib/pdf-render.ts` con
+// `import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url'`;
 // `worker.format: 'es'` lo empaqueta como módulo con ruta relativa.
 export default defineConfig({
   base: './',
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   worker: {
     format: 'es',
   },
