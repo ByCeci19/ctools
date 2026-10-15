@@ -108,8 +108,8 @@
 
 **Independent Test**: .docx y PDF cargados a 360 px en los 4 pasos: cero scroll-x (quickstart escenario 6)
 
-- [ ] T016 [P] [US6] Auditar y contener ancho en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx` (`min-w-0`, cortes de texto)
-- [ ] T017 [P] [US6] Auditar y contener ancho en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx` (`min-w-0`, cortes de texto)
+- [X] T016 [P] [US6] Auditar y contener ancho en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx` (`min-w-0`, cortes de texto)
+- [X] T017 [P] [US6] Auditar y contener ancho en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx` (`min-w-0`, cortes de texto)
 
 **Checkpoint**: Las 6 historias funcionan independientes
 
