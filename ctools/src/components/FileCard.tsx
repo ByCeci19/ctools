@@ -1,5 +1,5 @@
 import type { CSSProperties, HTMLAttributes, Ref } from 'react'
-import { GripVertical, Trash2 } from 'lucide-react'
+import { ChevronDown, ChevronUp, GripVertical, Trash2 } from 'lucide-react'
 
 // Tarjeta por archivo en la cola de unión (FR-011): miniatura de la primera
 // página, nombre, peso legible y número de páginas. El reordenamiento por
@@ -27,6 +27,11 @@ interface FileCardProps {
   /** Miniatura aún generándose. */
   loadingThumbnail?: boolean
   onRemove: () => void
+  /** Reordenado explícito solo móvil (FR-005, `md:hidden`). */
+  onMoveUp?: () => void
+  onMoveDown?: () => void
+  isFirst?: boolean
+  isLast?: boolean
 }
 
 /** "1536" → "1,5 KB". Solo se usa aquí de momento. */
@@ -51,12 +56,16 @@ export default function FileCard({
   isDragging = false,
   loadingThumbnail = false,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  isFirst = false,
+  isLast = false,
 }: FileCardProps) {
   return (
     <article
       ref={containerRef}
       style={dragStyle}
-      className={`flex items-center gap-3 rounded-xl bg-white p-3 shadow-card ${
+      className={`flex items-center gap-2 rounded-xl bg-white p-2.5 shadow-card md:gap-3 md:p-3 ${
         isDragging ? 'opacity-60 ring-2 ring-accent' : ''
       }`}
     >
@@ -89,6 +98,29 @@ export default function FileCard({
       <span className="shrink-0 rounded-full bg-canvas px-2 py-1 text-xs font-bold text-gray-600">
         #{position}
       </span>
+
+      {onMoveUp && onMoveDown && (
+        <span className="flex shrink-0 flex-col gap-1 md:hidden" role="group" aria-label={`Orden de ${doc.name}`}>
+          <button
+            type="button"
+            onClick={onMoveUp}
+            disabled={isFirst}
+            aria-label={`Subir ${doc.name}`}
+            className="rounded-md border border-gray-200 p-1.5 text-gray-500 hover:border-accent hover:text-accent disabled:opacity-30"
+          >
+            <ChevronUp className="h-4 w-4" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={onMoveDown}
+            disabled={isLast}
+            aria-label={`Bajar ${doc.name}`}
+            className="rounded-md border border-gray-200 p-1.5 text-gray-500 hover:border-accent hover:text-accent disabled:opacity-30"
+          >
+            <ChevronDown className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </span>
+      )}
 
       <button
         type="button"

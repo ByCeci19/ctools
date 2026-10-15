@@ -68,7 +68,7 @@
 **Independent Test**: 3 PDF a 360 px, reordenar solo con botones y unir; repetir arrastrando; scroll normal no arrastra (quickstart escenario 3)
 
 - [X] T008 [P] [US3] Tests unitarios de `moveUp`/`moveDown` en `ctools/tests/unit/merge-order.test.ts`
-- [ ] T009 [US3] Implementar variante compacta + botones Subir/Bajar (`md:hidden`) en `ctools/src/components/FileCard.tsx` (FR-004/FR-005)
+- [X] T009 [US3] Implementar variante compacta + botones Subir/Bajar (`md:hidden`) en `ctools/src/components/FileCard.tsx` (FR-004/FR-005)
 - [ ] T010 [US3] Integrar botones + `TouchSensor` (delay 250 ms, tolerancia 5 px) en `ctools/src/tools/merge/MergePage.tsx` (R4)
 
 **Checkpoint**: Unir usable con una mano
