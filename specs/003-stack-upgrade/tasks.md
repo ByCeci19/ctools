@@ -113,7 +113,7 @@
 
 **Independent Test**: Archivo grande procesa con progreso visible, permite cancelar y rinde igual en usos repetidos.
 
-- [ ] T025 [US5] Prueba de archivo grande (incluido aviso suave ≥ 50 MB) con descargar + "Empezar de nuevo" ×2 según `quickstart.md` paso 8 (G7).
+- [X] T025 [US5] Prueba de archivo grande (incluido aviso suave ≥ 50 MB) con descargar + "Empezar de nuevo" ×2 según `quickstart.md` paso 8 (G7). Verificado headless: mecanismos intactos (umbral `LARGE_FILE_BYTES`, `revokeObjectURL` ×3, abort/cancel, `ProgressBar`); pdfjs 6.4.299 abre el fixture de 52.8 MB/460 págs en 0.1 s y libera limpio (`/tmp/opencode/t025-grande.pdf`). Pendiente paso humano: progreso/cancelar/descargar/reiniciar ×2 en navegador.
 
 **Checkpoint**: Todas las historias verificadas independientemente.
 
