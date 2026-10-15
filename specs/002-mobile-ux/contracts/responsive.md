@@ -13,6 +13,7 @@ Contratos UI (props y reglas de visibilidad). Todo lo no listado hereda
 | `disabled?: boolean` | Mismas reglas que el botón en flujo |
 | `hint?: string` | Texto auxiliar (p. ej. "Añade al menos 2 archivos") |
 | `onAction: () => void` | Mismo handler que el botón en flujo |
+| `visible: boolean` | Solo `true` en fase config con archivos; en `false` no renderiza nada |
 | Visibilidad | `fixed bottom-0 md:hidden`; solo si `visible` (fase config + hay archivos) |
 | Safe-area | `padding-bottom: env(safe-area-inset-bottom)` |
 | Prohibido | Duplicar el botón en flujo en móvil; mostrar sin archivos o fuera de configuración |

@@ -93,10 +93,10 @@
 
 **Independent Test**: Con archivos a 360 px, botón fijo abajo y pulsable con scroll en las 4 vistas; sin archivos/procesando/éxito no hay barra (quickstart escenario 5)
 
-- [ ] T012 [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/merge/MergePage.tsx`
-- [ ] T013 [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/remove-pages/RemovePagesPage.tsx`
-- [ ] T014 [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx`
-- [ ] T015 [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx`
+- [ ] T012 [P] [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/merge/MergePage.tsx`
+- [ ] T013 [P] [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/remove-pages/RemovePagesPage.tsx`
+- [ ] T014 [P] [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/word-to-pdf/WordToPdfPage.tsx`
+- [ ] T015 [P] [US5] Integrar `StickyActionBar` + espaciador inferior en `ctools/src/tools/pdf-to-word/PdfToWordPage.tsx`
 
 **Checkpoint**: Acción principal siempre visible en móvil
 

@@ -23,7 +23,7 @@ Resuelta solo con CSS (`md:`); sin estado JS ni persistencia.
 | Campo | Tipo | Reglas |
 |-------|------|--------|
 | open | boolean | Solo existe bajo 768 px (botón `md:hidden`); `false` inicial |
-| Transiciones | — | `cerrado → abierto` (pulsar botón) · `abierto → cerrado` (elegir herramienta, `Escape`, clic fuera, pasar a ≥768 px) |
+| Transiciones | — | `cerrado → abierto` (pulsar botón) · `abierto → cerrado` (elegir herramienta, `Escape`, clic fuera). Al pasar a ≥768 px el panel queda oculto por CSS sin necesidad de cerrar el estado |
 
 ### Barra de acción fija (`StickyActionBar`, compartido)
 
