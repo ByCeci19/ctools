@@ -42,7 +42,7 @@
 ### Grupo 2 — Runtime + `src/` (R1, R2, R5)
 
 - [X] T011 Migrar imports del enrutador a `"react-router"` en `ctools/src/App.tsx`, `ctools/src/routes.tsx` y `ctools/src/tools/dashboard/Dashboard.tsx` (R1: `HashRouter/Link/NavLink/Navigate/useRoutes/RouteObject`). Hecho; cero refs restantes y build verde.
-- [ ] T012 Subir `pdfjs-dist` a 6.x y verificar `ctools/src/lib/pdf-render.ts` (`?url` + `GlobalWorkerOptions.workerSrc`); retrabajo del worker si 6.x lo exige, API del módulo intacta (R5).
+- [X] T012 Subir `pdfjs-dist` a 6.x y verificar `ctools/src/lib/pdf-render.ts` (`?url` + `GlobalWorkerOptions.workerSrc`); retrabajo del worker si 6.x lo exige, API del módulo intacta (R5). Verificado: `GlobalWorkerOptions`/`getDocument` existen en 6.4.299, worker empaquetado en `dist` (1.26 MB); sin cambios de código.
 - [ ] T013 Subir resto del runtime (jspdf 3.x, pdf-lib, docx, docx-preview, html2canvas, dnd-kit, lucide-react, react-dropzone) y corregir usos/tipos rotos en `ctools/src/lib/` y `ctools/src/components/`.
 - [ ] T014 Puerta G1 runtime: `npm run build` en `ctools/` en verde tras el runtime.
 
