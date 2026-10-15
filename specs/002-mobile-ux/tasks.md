@@ -28,7 +28,7 @@
 
 **⚠️ CRITICAL**: Ninguna historia empieza hasta completar esta fase
 
-- [ ] T002 Crear `StickyActionBar` compartido en `ctools/src/components/StickyActionBar.tsx` según `contracts/responsive.md` (fixed bottom, `md:hidden`, safe-area, props label/disabled/hint/onAction)
+- [X] T002 Crear `StickyActionBar` compartido en `ctools/src/components/StickyActionBar.tsx` según `contracts/responsive.md` (fixed bottom, `md:hidden`, safe-area, props label/disabled/hint/onAction)
 - [ ] T003 Tests unitarios de `StickyActionBar` en `ctools/tests/unit/sticky-action-bar.test.ts` (render condicional por `visible`, click, disabled)
 
 **Checkpoint**: Foundation ready — las historias pueden implementarse en paralelo
