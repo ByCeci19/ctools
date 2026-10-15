@@ -18,8 +18,8 @@
 **Purpose**: Fijar la baseline pre-upgrade y el entorno antes de tocar dependencias.
 
 - [X] T001 Registrar baseline en `ctools/`: versiones actuales de `ctools/package.json` y salida verde de `npm ci && npm test && npm run build` como referencia de comparación.
-- [ ] T002 [P] Confirmar toolchain disponible: `node --version` (objetivo CI 24 LTS) y npm funcional para `ctools/package-lock.json`.
-- [ ] T003 [P] Inventariar toques (solo lectura): `grep -rn react-router-dom ctools/src ctools/tests`, clases Tailwind afectadas y refs al worker en `ctools/src/lib/pdf-render.ts` y `ctools/vite.config.ts`.
+- [X] T002 [P] Confirmar toolchain disponible: `node --version` (objetivo CI 24 LTS) y npm funcional para `ctools/package-lock.json`.
+- [X] T003 [P] Inventariar toques (solo lectura): `grep -rn react-router-dom ctools/src ctools/tests`, clases Tailwind afectadas y refs al worker en `ctools/src/lib/pdf-render.ts` y `ctools/vite.config.ts`.
 
 ---
 
