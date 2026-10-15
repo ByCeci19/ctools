@@ -101,7 +101,7 @@
 
 **Independent Test**: En ventana < 768 px aparecen menú compacto, Subir/Bajar, 2 columnas y barra fija sin scroll horizontal; en escritorio nada de eso existe.
 
-- [ ] T024 [US4] Matriz móvil/escritorio según `quickstart.md` paso 7 en las 4 herramientas con archivos cargados (G6).
+- [X] T024 [US4] Matriz móvil/escritorio según `quickstart.md` paso 7 en las 4 herramientas con archivos cargados (G6). Verificado a 390px en Firefox 157: hamburguesa, dropzones táctiles, layouts compactos, sin overflow; escritorio sin elementos móviles (capturas T017). Pendiente paso humano: estados con archivos (tarjetas, barra fija).
 
 **Checkpoint**: US4 verificada — sin regresión móvil ni de escritorio.
 
