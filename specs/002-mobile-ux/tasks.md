@@ -120,7 +120,7 @@
 **Purpose**: Validación móvil completa y regresión de escritorio
 
 - [X] T018 Ejecutar validación guiada completa de `specs/002-mobile-ux/quickstart.md` escenarios 1–7 a 360 px
-- [ ] T019 Verificación de regresión en escritorio ≥1024 px (5 vistas idénticas, sin botones/barra/menú móvil) + `npm run build`
+- [X] T019 Verificación de regresión en escritorio ≥1024 px (5 vistas idénticas, sin botones/barra/menú móvil) + `npm run build`
 - [ ] T020 Verificar deploy en GitHub Pages y vista móvil del sitio publicado
 
 ---
