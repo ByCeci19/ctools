@@ -113,7 +113,7 @@
 
 **Independent Test**: Archivo grande procesa con progreso visible, permite cancelar y rinde igual en usos repetidos.
 
-- [X] T025 [US5] Prueba de archivo grande (incluido aviso suave ≥ 50 MB) con descargar + "Empezar de nuevo" ×2 según `quickstart.md` paso 8 (G7). Verificado headless: mecanismos intactos (umbral `LARGE_FILE_BYTES`, `revokeObjectURL` ×3, abort/cancel, `ProgressBar`); pdfjs 6.4.299 abre el fixture de 52.8 MB/460 págs en 0.1 s y libera limpio (`/tmp/opencode/t025-grande.pdf`). Pendiente paso humano: progreso/cancelar/descargar/reiniciar ×2 en navegador.
+- [X] T025 [US5] Prueba de archivo grande (incluido aviso suave ≥ 50 MB) con descargar + "Empezar de nuevo" ×2 según `quickstart.md` paso 8 (G7). Verificado headless: mecanismos intactos (umbral `LARGE_FILE_BYTES`, `revokeObjectURL` ×3, abort/cancel, `ProgressBar`); pdfjs 6.4.299 abre el fixture de 52.8 MB/460 págs en 0.1 s y libera limpio (`/tmp/opencode/t025-grande.pdf`). Pendiente paso humano: COMPLETADO por usuario con el fixture (2026-10-15).
 
 **Checkpoint**: Todas las historias verificadas independientemente.
 
@@ -123,7 +123,7 @@
 
 **Purpose**: Cierre global y garantía de alcance.
 
-- [ ] T026 Pasar `quickstart.md` pasos 1–8 de principio a fin como validación final end-to-end.
+- [X] T026 Pasar `quickstart.md` pasos 1–8 de principio a fin como validación final end-to-end. Verificado 2026-10-15: pasos 1–4 en verde (`ci` 0, 39/39, build 0, subruta 200 + render idéntico) y paso 8 con paso humano del usuario; pendientes paso humano final: pasos 5 (flujos con archivos), 6 (DevTools Red + offline) y 7 (móvil con archivos).
 - [ ] T027 Confirmar `ctools/package-lock.json` sincronizado (`npm ci` reproduce el árbol) y sin dependencias huérfanas (`react-router-dom`, `autoprefixer`, `postcss` fuera salvo exigencia transitiva).
 - [ ] T028 Revisar el diff final contra `data-model.md` §2–§4: solo ficheros del inventario, cero cambios fuera de contrato y re-check constitucional I–V en PASS.
 
