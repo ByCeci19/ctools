@@ -31,7 +31,7 @@
 
 ### Grupo 1 — Toolchain (R2 parcial, R3, R4, R6, R8)
 
-- [ ] T004 Actualizar `ctools/package.json` según `contracts/upgrade-targets.md` §1: quitar `react-router-dom`/`autoprefixer`/`postcss`, añadir `react-router` v8 + `@tailwindcss/vite` 4.3.x y subir toolchain (Vite 8.3.x, plugin-react 5.x, Tailwind 4.3.x, TS última estable, `@types/react` 19, Vitest 5.x, TLR/jsdom compatibles).
+- [X] T004 Actualizar `ctools/package.json` según `contracts/upgrade-targets.md` §1: quitar `react-router-dom`/`autoprefixer`/`postcss`, añadir `react-router` v8 + `@tailwindcss/vite` 4.3.x y subir toolchain (Vite 8.3.x, plugin-react 6.x —peers vite ^8—, Tailwind 4.3.x, TS 7.0.x estable, `@types/react` 19, Vitest 5.x, TLR/jsdom compatibles). Resuelto: react 19.3.1, router 8.4.0, vite 8.3.4, tailwind 4.3.3, TS 7.0.2, vitest 5.0.4, pdfjs 6.4.299, jspdf 3.0.4 (línea contrato).
 - [ ] T005 Regenerar `ctools/package-lock.json` mediante instalación (`npm install` en `ctools/`), sin edición manual.
 - [ ] T006 Actualizar `ctools/vite.config.ts`: plugins React 5 + Tailwind v4, conservando `base: './'`, `worker: { format: 'es' }` y el bloque `test` (`globals`, `jsdom`, `setupFiles`).
 - [ ] T007 Migrar `ctools/src/styles/tailwind.css` a `@import "tailwindcss"` + bloque `@theme` con los 4 tokens (`#F5F5FA`, `#E5322D`, `#B71F1B`, sombra `card`) y eliminar `ctools/tailwind.config.js` y `ctools/postcss.config.js`.
