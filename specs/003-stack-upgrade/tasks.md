@@ -37,7 +37,7 @@
 - [X] T007 Migrar `ctools/src/styles/tailwind.css` a `@import "tailwindcss"` + bloque `@theme` con los 4 tokens (`#F5F5FA`, `#E5322D`, `#B71F1B`, sombra `card`) y eliminar `ctools/tailwind.config.js` y `ctools/postcss.config.js`. Hecho; tokens verificados contra clases en uso (accent/accent-dark/canvas/shadow-card).
 - [X] T008 Actualizar `ctools/tsconfig.app.json` y `ctools/tsconfig.node.json` a compatibilidad TS 6/7 manteniendo `strict`, `noUnusedLocals`, `noUnusedParameters`, `jsx: react-jsx`. Verificado con tsc 7.0.2 (`--showConfig` válido en ambas): sin cambios necesarios, estricto intacto.
 - [X] T009 Actualizar `.github/workflows/deploy.yml`: `node-version: 24`. Hecho (era 20).
-- [ ] T010 Puerta G1 toolchain: `npm run build` en `ctools/` en verde con `ctools/dist` generada.
+- [ ] T010 Puerta G1 toolchain: `npm run build` en `ctools/` en verde con `ctools/dist` generada. INTENTO 2026-10-15: toolchain OK (Vite 8 transforma 2363 módulos, CSS v4 21 kB, worker pdfjs6 1.26 MB empaquetado) pero build ROJA por causa única `react-router-dom` irresoluble desde `src/App.tsx` → alcance T011 (grupo 2). Reintentar tras T011; verificar en T014.
 
 ### Grupo 2 — Runtime + `src/` (R1, R2, R5)
 
