@@ -255,7 +255,7 @@ export default function RemovePagesPage() {
                 onToggle={togglePage}
               />
             </div>
-            <aside className="w-full shrink-0 lg:w-72">
+            <aside className="w-full shrink-0 max-lg:order-first max-lg:sticky max-lg:top-16 max-lg:z-[5] max-lg:bg-canvas max-lg:py-2 lg:w-72">
               <RangeInput
                 expression={expression}
                 pageCount={doc.pageCount}

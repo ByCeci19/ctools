@@ -81,7 +81,7 @@
 
 **Independent Test**: PDF 8 páginas a 360 px, marcar por clic y rangos con scroll sin tapados (quickstart escenario 4)
 
-- [ ] T011 [US4] Fijar bloque de rangos bajo cabecera solo en móvil en `ctools/src/tools/remove-pages/RemovePagesPage.tsx` (R5, `ThumbnailGrid.tsx` sin cambios)
+- [X] T011 [US4] Fijar bloque de rangos bajo cabecera solo en móvil en `ctools/src/tools/remove-pages/RemovePagesPage.tsx` (R5, `ThumbnailGrid.tsx` sin cambios)
 
 **Checkpoint**: Eliminar usable en teléfono
 
