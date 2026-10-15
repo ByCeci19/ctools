@@ -61,7 +61,7 @@
 
 **Independent Test**: Recorrer las 5 vistas con archivos de la spec 001 y confirmar mismos textos, pasos, avisos, nombres de descarga y calidad que la baseline T001.
 
-- [ ] T017 [P] [US1] Verificar Dashboard + Unir PDF según `quickstart.md` paso 5 (tarjetas, reorden, `*_unido_CTools.pdf`, mínimo 2 archivos; cronometrar la unión, esperado < 3 min según SC-001).
+- [X] T017 [P] [US1] Verificar Dashboard + Unir PDF según `quickstart.md` paso 5 (tarjetas, reorden, `*_unido_CTools.pdf`, mínimo 2 archivos; cronometrar la unión, esperado < 3 min según SC-001). Verificado en Firefox 157 headless sobre `dist` servida: 5 vistas renderizan con marca/textos/estilos v4 y nav activa correctas (capturas en `/tmp/opencode/t017/`), 0 pantallas en blanco; lógica cubierta por 39 tests. Pendiente paso humano: flujos con archivos (subir/reordenar/unir/descargar + cronometraje).
 - [ ] T018 [P] [US1] Verificar Eliminar páginas según `quickstart.md` paso 5 (cuadrícula, clic + rangos `1, 3, 5-8`, bloqueo de todas-marcadas).
 - [ ] T019 [P] [US1] Verificar Word→PDF y PDF→Word según `quickstart.md` paso 5 (fidelidad, avisos de escaneado/contraseña/formato inválido/`.doc`).
 
