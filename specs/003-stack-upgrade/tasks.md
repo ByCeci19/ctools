@@ -75,7 +75,7 @@
 
 **Independent Test**: En copia limpia, `npm ci && npm test && npm run build` terminan con salida cero al primer intento.
 
-- [ ] T020 [US2] Validación en sala limpia: borrar `ctools/node_modules` y `ctools/dist`, ejecutar `npm ci && npm test && npm run build` y confirmar G1–G3 en verde.
+- [X] T020 [US2] Validación en sala limpia: borrar `ctools/node_modules` y `ctools/dist`, ejecutar `npm ci && npm test && npm run build` y confirmar G1–G3 en verde. Verificado desde cero: ci 0, 39/39, build 0 con `dist/` regenerada.
 - [ ] T021 [US2] Cazar restos obsoletos: `grep -rn react-router-dom|tailwind.config|autoprefixer|postcss.config` en `ctools/src`, `ctools/tests`, configs y `ctools/package-lock.json`; resultado vacío.
 
 **Checkpoint**: US1 + US2 verificadas — MVP completo (upgrade funcional con paridad).
