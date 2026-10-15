@@ -4,6 +4,7 @@ import Dropzone from '../../components/Dropzone'
 import ProgressBar from '../../components/ProgressBar'
 import RangeInput from '../../components/RangeInput'
 import SuccessScreen from '../../components/SuccessScreen'
+import StickyActionBar from '../../components/StickyActionBar'
 import ThumbnailGrid from '../../components/ThumbnailGrid'
 import { downloadBytes } from '../../lib/download'
 import { resultFilename } from '../../lib/filenames'
@@ -213,7 +214,7 @@ export default function RemovePagesPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 pb-28 md:pb-0">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-extrabold text-gray-900">Eliminar páginas PDF</h1>
@@ -278,7 +279,7 @@ export default function RemovePagesPage() {
             />
           )}
 
-          <div className="flex flex-col items-stretch gap-2">
+          <div className="flex flex-col items-stretch gap-2 max-md:hidden">
             <button
               type="button"
               onClick={handleProcess}
@@ -291,6 +292,14 @@ export default function RemovePagesPage() {
               <p className="text-center text-sm text-gray-500">Marca al menos 1 página.</p>
             )}
           </div>
+
+          <StickyActionBar
+            label="Eliminar páginas"
+            disabled={selection.size === 0 || phase !== 'config'}
+            hint={selection.size === 0 && phase === 'config' ? 'Marca al menos 1 página.' : undefined}
+            visible={doc !== null && phase === 'config'}
+            onAction={handleProcess}
+          />
         </>
       )}
     </div>
