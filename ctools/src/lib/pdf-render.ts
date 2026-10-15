@@ -16,7 +16,8 @@ export function preloadPdfWorker(): void {
   if (workerPreloaded || typeof Worker === 'undefined') return
   workerPreloaded = true
   try {
-    pdfjsLib.GlobalWorkerOptions.workerPort = new Worker(workerSrc)
+    // Igual que la creación interna de pdf.js: el worker es un módulo ES.
+    pdfjsLib.GlobalWorkerOptions.workerPort = new Worker(workerSrc, { type: 'module' })
   } catch {
     // Sin worker (CSP u otro entorno): se intentará bajo demanda al procesar.
   }
