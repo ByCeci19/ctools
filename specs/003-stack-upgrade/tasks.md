@@ -125,7 +125,7 @@
 
 - [X] T026 Pasar `quickstart.md` pasos 1–8 de principio a fin como validación final end-to-end. Verificado 2026-10-15: pasos 1–4 en verde (`ci` 0, 39/39, build 0, subruta 200 + render idéntico) y paso 8 con paso humano del usuario; pendientes paso humano final: pasos 5 (flujos con archivos), 6 (DevTools Red + offline) y 7 (móvil con archivos).
 - [X] T027 Confirmar `ctools/package-lock.json` sincronizado (`npm ci` reproduce el árbol) y sin dependencias huérfanas (`react-router-dom`, `autoprefixer`, `postcss` fuera salvo exigencia transitiva). Verificado: `npm ls` limpio (24/24 directas en versión contrato, cero extraneous), `npm ci` reproduce con salida cero; el dry-run solo lista opcionales de plataforma (lightningcss/fsevents/TS nativos), no deriva real.
-- [ ] T028 Revisar el diff final contra `data-model.md` §2–§4: solo ficheros del inventario, cero cambios fuera de contrato y re-check constitucional I–V en PASS.
+- [X] T028 Revisar el diff final contra `data-model.md` §2–§4: solo ficheros del inventario, cero cambios fuera de contrato y re-check constitucional I–V en PASS. Verificado: 12 ficheros producto (7 update, 2 delete, 3 src-router/worker) + docs de spec; `pdf-text.ts` extra por la misma causa R5 (tipo `TextItem` v6); tsconfigs y tests sin diff (compatibles); I–V en PASS con evidencia T017–T027.
 
 ---
 
