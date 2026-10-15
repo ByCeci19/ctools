@@ -4,6 +4,7 @@ import Alert from '../../components/Alert'
 import Dropzone from '../../components/Dropzone'
 import ProgressBar from '../../components/ProgressBar'
 import SuccessScreen from '../../components/SuccessScreen'
+import StickyActionBar from '../../components/StickyActionBar'
 import { formatBytes } from '../../components/FileCard'
 import { downloadBytes } from '../../lib/download'
 import { resultFilename } from '../../lib/filenames'
@@ -156,7 +157,7 @@ export default function PdfToWordPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 pb-28 md:pb-0">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-extrabold text-gray-900">PDF a Word</h1>
@@ -219,7 +220,7 @@ export default function PdfToWordPage() {
             />
           )}
 
-          <div className="flex flex-col items-stretch gap-2">
+          <div className="flex flex-col items-stretch gap-2 max-md:hidden">
             <button
               type="button"
               onClick={handleConvert}
@@ -229,6 +230,13 @@ export default function PdfToWordPage() {
               {phase === 'working' ? 'Convirtiendo…' : 'Convertir a Word'}
             </button>
           </div>
+
+          <StickyActionBar
+            label="Convertir a Word"
+            disabled={phase !== 'config'}
+            visible={doc !== null && phase === 'config'}
+            onAction={handleConvert}
+          />
         </>
       )}
     </div>
