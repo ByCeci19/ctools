@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 // Base relativa: assets y workers cargan igual en `usuario.github.io/ctools/`
 // o cualquier subruta de GitHub Pages (constitución II).
@@ -8,7 +9,7 @@ import react from '@vitejs/plugin-react'
 // `worker.format: 'es'` lo empaqueta como módulo con ruta relativa.
 export default defineConfig({
   base: './',
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   worker: {
     format: 'es',
   },

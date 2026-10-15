@@ -33,7 +33,7 @@
 
 - [X] T004 Actualizar `ctools/package.json` según `contracts/upgrade-targets.md` §1: quitar `react-router-dom`/`autoprefixer`/`postcss`, añadir `react-router` v8 + `@tailwindcss/vite` 4.3.x y subir toolchain (Vite 8.3.x, plugin-react 6.x —peers vite ^8—, Tailwind 4.3.x, TS 7.0.x estable, `@types/react` 19, Vitest 5.x, TLR/jsdom compatibles). Resuelto: react 19.3.1, router 8.4.0, vite 8.3.4, tailwind 4.3.3, TS 7.0.2, vitest 5.0.4, pdfjs 6.4.299, jspdf 3.0.4 (línea contrato).
 - [X] T005 Regenerar `ctools/package-lock.json` mediante instalación (`npm install` en `ctools/`), sin edición manual. Resuelto limpio (176 paquetes; el lockfile previo de era-v6 bloqueaba ERESOLVE, se regeneró desde cero).
-- [ ] T006 Actualizar `ctools/vite.config.ts`: plugins React 5 + Tailwind v4, conservando `base: './'`, `worker: { format: 'es' }` y el bloque `test` (`globals`, `jsdom`, `setupFiles`).
+- [X] T006 Actualizar `ctools/vite.config.ts`: plugins React 5 + Tailwind v4, conservando `base: './'`, `worker: { format: 'es' }` y el bloque `test` (`globals`, `jsdom`, `setupFiles`). Hecho con plugin-react 6.x (línea que empareja Vite 8) + `@tailwindcss/vite`; resto intacto.
 - [ ] T007 Migrar `ctools/src/styles/tailwind.css` a `@import "tailwindcss"` + bloque `@theme` con los 4 tokens (`#F5F5FA`, `#E5322D`, `#B71F1B`, sombra `card`) y eliminar `ctools/tailwind.config.js` y `ctools/postcss.config.js`.
 - [ ] T008 Actualizar `ctools/tsconfig.app.json` y `ctools/tsconfig.node.json` a compatibilidad TS 6/7 manteniendo `strict`, `noUnusedLocals`, `noUnusedParameters`, `jsx: react-jsx`.
 - [ ] T009 Actualizar `.github/workflows/deploy.yml`: `node-version: 24`.
