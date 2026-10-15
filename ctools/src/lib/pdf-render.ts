@@ -7,6 +7,21 @@ import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc
 
+// Precarga del worker al arrancar la app (FR-014): el worker vive en memoria
+// desde la primera carga, así el modo sin conexión funciona aunque todavía no
+// se haya procesado ningún PDF. Idempotente; sin `Worker` (p. ej. tests) no
+// hace nada y pdf.js lo creará bajo demanda al usarse.
+let workerPreloaded = false
+export function preloadPdfWorker(): void {
+  if (workerPreloaded || typeof Worker === 'undefined') return
+  workerPreloaded = true
+  try {
+    pdfjsLib.GlobalWorkerOptions.workerPort = new Worker(workerSrc)
+  } catch {
+    // Sin worker (CSP u otro entorno): se intentará bajo demanda al procesar.
+  }
+}
+
 // pdf.js v6 retiró `PDFDocumentProxy.destroy()`; la liberación completa vive
 // en la tarea de carga, así que se conserva por documento (WeakMap).
 const loadingTasks = new WeakMap<PDFDocumentProxy, PDFDocumentLoadingTask>()
